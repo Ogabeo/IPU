@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+yangilik haqida batafsil
+{% endblock title %}
+{% block extrahead %}
+
+{% endblock extrahead %}
+
+{% block context %}
+
+    <div class="mt-10 w-full text-center">
+        <img class="d-block w-75 ml-auto mr-auto" src="{{ yangilik.image.url }}" 
+                alt="Yangilik rasmi" 
+                style="max-height:500px; object-fit:cover;">
+        <h1 class="mb-3 font-bold text-4xl sm:text-5xl text-blue-900 text-center">
+            {{ yangilik.title }}
+        </h1>
+        <p class="mx-auto px-16 my-6 text-gray-700 dark:text-gray-200 text-lg leading-relaxed text-justify w-75 ml-auto mr-auto ">
+            {{ yangilik.description }}
+        </p>
+    </div>
+
+    
+
+{% endblock context %}
+
+{% block static %}
+
+{% endblock static %}

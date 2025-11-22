@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Xalqaro hamkorlik
+{% endblock title %}
+
+{% block extrahead %}
+{% endblock extrahead %}
+
+{% block context %}
+<section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+  <!-- Orqa fon rasmi -->
+  <img src="{% static 'img/inter.jpg' %}" 
+       alt="Banner" 
+       class="absolute inset-0 w-full h-full object-cover" />
+
+  <!-- Oq gradient (pastdan boshlab tepaga tiniqlashadi) -->
+  <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
+
+  <!-- Matn qismi -->
+  <div class="relative z-10 px-6">
+    <h1 class="text-4xl sm:text-6xl font-serif font-semibold text-gray-900 mb-6 animate-slideUp">
+      Kompyuter tizimlari kafedrasining xalqaro darajadagi aloqalari
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto animate-slideUp delay-200">
+      Xalqaro miqyosdagi yutuqlar, hamkorliklar, bitimlar haqida batafsil ma'lumot
+    </p>
+  </div>
+</section>
+
+<!-- 🔹 Animatsiya uchun CSS -->
+<style>
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 1.2s ease-out forwards;
+}
+
+.delay-200 {
+  animation-delay: 0.3s;
+}
+</style>
+<div class="mt-10 w-full text-center">
+    <h1 class="mb-3 font-bold text-4xl sm:text-5xl text-blue-900">
+        Xalqaro hamkorlik
+    </h1>
+    <p class="w-full my-6 text-gray-700 dark:text-gray-200 text-lg leading-relaxed text-justify px-4 md:px-16">
+        Umumiy qoidalar: Xalqaro hamkorlik oliy ta’lim muassasasining rivojlanishida muhim o‘rin tutadi.
+        Hamkorlik akademik erkinlik, ochiqlik, tenglik va manfaatdorlik tamoyillari asosida yo‘lga qo‘yiladi.
+        Har qanday xalqaro shartnoma va memorandum O‘zbekiston Respublikasi qonunchiligiga muvofiq amalga oshiriladi.
+        <br><br>
+        Asosiy yo‘nalishlar:
+        Talabalar almashinuvi dasturlari (bakalavr va magistratura bosqichida),
+        professor-o‘qituvchilar va ilmiy xodimlar uchun stajirovkalar va malaka oshirish,
+        qo‘shma ilmiy-tadqiqot loyihalari va grantlarda ishtirok etish,
+        xalqaro konferensiya, seminar va forumlarda qatnashish,
+        ikki tomonlama va ko‘p tomonlama qo‘shma ta’lim dasturlarini yo‘lga qo‘yish.
+        <br><br>
+        Amalga oshirish tartibi:
+        Xalqaro hamkorlik tashabbusi kafedra yoki fakultet darajasida ko‘rib chiqiladi. 
+        Tashabbus universitet xalqaro aloqalar bo‘limi bilan kelishiladi. 
+        Hamkorlik loyihasi bo‘yicha shartnomalar rasmiylashtiriladi. 
+        Har bir shartnoma asosida mas’ul shaxslar va muddatlar belgilanadi.
+    </p>
+</div>
+
+<!-- Xalqaro yangiliklar cardlar -->
+<div class="mt-12 flex flex-col gap-10 px-4 md:px-0">
+    {% for xalqaro_yangilik in xalqaro_faoliyatlar %}
+        {% with birinchi_rasm=xalqaro_yangilik.rasmlar.first %}
+        <div class="flex flex-col md:flex-row items-center md:items-stretch
+                    {% if forloop.counter|divisibleby:2 %}md:flex-row-reverse{% endif %}
+                    bg-white dark:bg-gray-800 shadow-2xl hover:shadow-3xl transition-all duration-300 rounded-3xl overflow-hidden 
+                    max-w-7xl mx-auto w-[95%]">
+            
+            {% if birinchi_rasm %}
+            <div class="md:w-1/2 w-full">
+                <img src="{{ birinchi_rasm.image.url }}" alt="{{ xalqaro_yangilik.title }}"
+                     class="w-full h-[400px] object-cover object-center md:rounded-l-3xl">
+            </div>
+            {% else %}
+            <div class="md:w-1/2 w-full bg-gray-200 flex items-center justify-center h-[400px] text-gray-500 italic">
+                Rasm mavjud emas
+            </div>
+            {% endif %}
+
+            <div class="md:w-1/2 w-full p-10 flex flex-col justify-center text-left">
+                <a href="{% url 'resources:xalqaro_detail' xalqaro_yangilik.slug %}">
+                <h5 class="text-3xl font-bold text-blue-900 dark:text-white mb-5 leading-snug">
+                    {{ xalqaro_yangilik.title }}
+                </h5>
+                </a>
+                <p class="text-gray-700 dark:text-gray-300 text-xl leading-relaxed mb-6">
+                    {{ xalqaro_yangilik.description|truncatechars:250 }}
+                </p>
+                <p class="text-md text-gray-500 dark:text-gray-400">
+                    {{ xalqaro_yangilik.created_at }}
+                </p>
+            </div>
+        </div>
+        {% endwith %}
+    {% endfor %}
+</div>
+{% endblock context %}
+
+{% block static %}
+{% endblock static %}

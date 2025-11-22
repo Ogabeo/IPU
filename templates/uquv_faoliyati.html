@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+o'quv faoliyati
+{% endblock title %}
+{% block extrahead %}
+
+{% endblock extrahead %}
+
+{% block context %}
+<section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+  <!-- Orqa fon rasmi -->
+  <img src="{% static 'img/edu.jpg' %}" 
+       alt="Banner" 
+       class="absolute inset-0 w-full h-full object-cover" />
+
+  <!-- Oq gradient (pastdan boshlab tepaga tiniqlashadi) -->
+  <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
+
+  <!-- Matn qismi -->
+  <div class="relative z-10 px-6">
+    <h1 class="text-4xl sm:text-6xl font-serif font-semibold text-gray-900 mb-6 animate-slideUp">
+      Kompyuter tizimlari kafedrasining o'quv faoliyati
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-700 max-w-2xl mx-auto animate-slideUp delay-200">
+      O'quv faoliyatga oid ma'lumotlar
+    </p>
+  </div>
+</section>
+
+<!-- 🔹 Animatsiya uchun CSS -->
+<style>
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 1.2s ease-out forwards;
+}
+
+.delay-200 {
+  animation-delay: 0.3s;
+}
+</style>
+
+    <div class="mt-10 w-full text-center">
+        <h1 class="mb-3 font-bold text-4xl sm:text-5xl text-blue-900">
+            O'quv faoliyat
+        </h1>
+        <p class="mx-auto px-16 my-6 text-gray-700 dark:text-gray-200 text-lg leading-relaxed text-justify max-w-9xl">
+            Hozirgi kunda Kompyuter tizimlari kafedrasida professorlar F.E. Ochilov, A.M. Turg‘unov, fan doktori B.M. Suropov,
+            dotsent Egamberdiyev M., katta o‘qituvchilar F.K. Karayev, I.R. Radjabova, F.S. Bozarov, Sh.B. Xayriddinov,
+            O‘.M. Jurayev, B.I. Suvonov; assistent o‘qituvchilar A.A. Sa’dullayev, J.T. Sunatov, N.B. Xidirova,
+            O.A. Asrorov, Sh.Y. Fayziyeva, Q.G. Madatov, stajyor o'qituvchilar O.F. Toshniyozov, D.Z. Islomov
+            hamda kabinet mudiri D.Sh. Isakovalar faol mehnat qilmoqdalar.
+        </p>
+    </div>
+
+
+    <div class="mt-10 w-full ">
+        <!-- Sarlavha markazda -->
+        <h1 class="mb-3 font-bold text-4xl sm:text-5xl text-center text-blue-900">
+            Asosiy yo'nalishlar
+        </h1>
+
+        <ul class="list-decimal ml-40 space-y-4 text-gray-700 dark:text-gray-200 text-lg leading-relaxed">
+            {% for yunalish in yunalishlar %}
+                <li>{{ yunalish.shifr }} - {{ yunalish.yunalish_nomi }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="mt-10 w-full">
+        <!-- Sarlavha markazda -->
+        <h1 class="mb-3 font-bold text-4xl sm:text-5xl text-center text-blue-900">
+            O'qitiladigan fanlar
+        </h1>
+
+    
+        <ol class="list-decimal ml-40 space-y-4 text-gray-700 dark:text-gray-200 text-lg leading-relaxed">
+            {% for fan in fanlar %}
+            <li>{{ fan.title }}</li>
+            {% endfor %}
+        </ol>
+    </div>
+    
+
+{% endblock context %}
+
+{% block static %}
+
+{% endblock static %}

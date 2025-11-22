@@ -1,0 +1,714 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+Xodim haqida ma'lumot
+{% endblock title %}
+
+{% block extrahead %}
+
+{% endblock extrahead %}
+
+{% block context %}
+<div class="py-6 container max-w-screen-2xl p-4 mx-auto sm:mb-10 mb-0">
+  <!-- CARD boshi -->
+  <div class="bg-white shadow-2xl rounded-xl overflow-hidden">
+
+    <!-- Yuqori qism -->
+    <div class="flex sm:flex-row flex-col gap-5 p-6 bg-gradient-to-r from-white to-blue-50">
+
+      <!-- Chap tomonda rasm -->
+      <div class="sm:w-1/3 w-2/3 mx-auto flex justify-center">
+        <div class="aspect-[7/8] w-60 sm:w-64 overflow-hidden rounded-xl shadow-md bg-gray-100">
+          <img
+            {% if xodim.photo %}
+              src="{{ xodim.photo.url }}"
+            {% else %}
+              src="{% static 'img/default_user.png' %}"
+            {% endif %}
+            alt="{{ xodim.full_name }}"
+            class="w-full h-full object-cover rounded-xl"
+          />
+        </div>
+      </div>
+
+
+
+      <!-- O‘rta qism: xodim ma’lumotlari -->
+      <div class="sm:w-2/3 w-full flex flex-col sm:flex-row justify-between relative">
+
+        <!-- Ma’lumotlar chapda -->
+        <div class="max-w-2xl mx-auto mt-4 sm:mt-6">
+          <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 tracking-tight">
+            {{ xodim.full_name }}
+          </h1>
+          <p class="text-sm sm:text-base font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-600">
+            Kompyuter tizimlari kafedrasi
+          </p>
+
+          <div class="mt-4 space-y-2.5 sm:space-y-3">
+            {% if xodim.lavozim %}
+              <p class="text-[14px] sm:text-[15px] leading-relaxed">
+                <span class="font-semibold text-gray-700 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-700">
+                  Lavozimi:
+                </span>
+                <span class="font-light text-gray-800 ml-1">{{ xodim.lavozim }}</span>
+              </p>
+            {% endif %}
+            {% if xodim.ilmiy_daraja %}
+              <p class="text-[14px] sm:text-[15px] leading-relaxed">
+                <span class="font-semibold text-gray-700 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-700">
+                  Ilmiy darajasi:
+                </span>
+                <span class="font-light text-gray-800 ml-1">{{ xodim.ilmiy_daraja }}</span>
+              </p>
+            {% endif %}
+            {% if xodim.ilmiy_unvon %}
+              <p class="text-[14px] sm:text-[15px] leading-relaxed">
+                <span class="font-semibold text-gray-700 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-700">
+                  Ilmiy unvoni:
+                </span>
+                <span class="font-light text-gray-800 ml-1">{{ xodim.ilmiy_unvon }}</span>
+              </p>
+            {% endif %}
+            {% if xodim.qabul_kunlar %}
+              <p class="text-[14px] sm:text-[15px] leading-relaxed">
+                <span class="font-semibold text-gray-700 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-700">
+                  Qabul kunlari:
+                </span>
+                <span class="font-light text-gray-800 ml-1">{{ xodim.qabul_kunlar }}</span>
+              </p>
+            {% endif %}
+            {% if xodim.manzil %}
+              <p class="text-[14px] sm:text-[15px] leading-relaxed">
+                <span class="font-semibold text-gray-700 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-700">
+                  Manzil:
+                </span>
+                <span class="font-light text-gray-800 ml-1">{{ xodim.manzil }}</span>
+              </p>
+            {% endif %}
+            {% if xodim.phone %}
+              <p class="text-[14px] sm:text-[15px] leading-relaxed">
+                <span class="font-semibold text-gray-700 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-700">
+                  Telefon raqam:
+                </span>
+                <span class="font-light text-gray-800 ml-1">{{ xodim.phone }}</span>
+              </p>
+            {% endif %}
+            {% if xodim.email_address %}
+              <p class="text-[14px] sm:text-[15px] leading-relaxed">
+                <span class="font-semibold text-gray-700 bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-blue-700">
+                  Email address:
+                </span>
+                <span class="font-light text-gray-800 ml-1 break-all">{{ xodim.email_address }}</span>
+              </p>
+            {% endif %}
+          </div>
+        </div>
+
+
+
+        <!-- Internet tugmalari -->
+        <div class="sm:w-1/3 w-full flex flex-col gap-3 mt-6 sm:mt-0 sm:items-end">
+        {% if xodim.google_scholar %}
+          <a href="{{ xodim.google_scholar }}" target="_blank" rel="noopener noreferrer"
+           class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+            <img src="{% static 'img/google_scholar.png' %}" alt="Google Scholar" class="w-5 h-5" />
+            GoogleScholar
+          </a>
+        {% endif %}
+        {% if xodim.scopus %}  
+          <a href="{{ xodim.scopus }}" target="_blank" rel="noopener noreferrer"
+            class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+            <img src="{% static 'img/scopus.png' %}" alt="Scopus" class="w-5 h-5" />
+            Scopus
+          </a>
+        {% endif %}
+        {% if xodim.researchgate %}
+          <a href="{{ xodim.researchgate }}" target="_blank" rel="noopener noreferrer"
+            class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+            <img src="{% static 'img/researchgate.png' %}" alt="ResearchGate" class="w-5 h-5" />
+            ResearchGate
+          </a>
+        {% endif %}
+        {% if xodim.orcid %}
+          <a href="{{ xodim.orcid }}" target="_blank" rel="noopener noreferrer"
+            class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+            <img src="{% static 'img/orcid.png' %}" alt="OrCID" class="w-5 h-5" />
+            ORCID
+          </a>
+        {% endif %}
+        {% if xodim.instagram %}
+          <a href="{{ xodim.instagram }}" target="_blank" rel="noopener noreferrer"
+            class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+            <img src="{% static 'img/instagram.gif' %}" alt="Instagram" class="w-5 h-5" />
+            Instagram
+          </a>
+        {% endif %}
+        {% if xodim.telegram %}
+          <a href="{{ xodim.telegram }}" target="_blank" rel="noopener noreferrer"
+            class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+            <img src="{% static 'img/telegram.png' %}" alt="Telegram" class="w-5 h-5" />
+            Telegram
+          </a>
+        {% endif %}
+        {% if xodim.linkedin %}
+          <a href="{{ xodim.linkedin }}" target="_blank" rel="noopener noreferrer"
+            class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+            <img src="{% static 'img/linkedin.gif' %}" alt="LinkedIn" class="w-5 h-5" />
+            LinkedIn
+          </a>
+        {% endif %}
+        {% if xodim.youtube %}
+        <a href="{{ xodim.youtube }}" target="_blank" rel="noopener noreferrer"
+          class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+          <img src="{% static 'img/youtube.png' %}" alt="LinkedIn" class="w-5 h-5" />
+          YouTube
+        </a>
+        {% endif %}
+        {% if xodim.facebook %}
+        <a href="{{ xodim.facebook }}" target="_blank" rel="noopener noreferrer"
+          class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+          <img src="{% static 'img/facebook.gif' %}" alt="LinkedIn" class="w-5 h-5" />
+          Facebook
+        </a>
+        {% endif %}
+        {% if xodim.shaxsiysayt %}
+        <a href="{{ xodim.shaxsiysayt }}" target="_blank" rel="noopener noreferrer"
+          class="w-full sm:w-[220px] bg-white text-blue-500 border border-gray-100 
+       hover:bg-blue-600 hover:text-darkblue hover:no-underline no-underline
+       transition duration-200 focus:ring-2 focus:ring-blue-300 
+       font-semibold rounded-lg text-sm px-5 py-2.5 
+       flex items-center gap-2 justify-center shadow-sm">
+          <img src="{% static 'img/website.png' %}" alt="LinkedIn" class="w-5 h-5" />
+          Shaxsiy web sayt
+        </a>
+        {% endif %}
+      </div>
+
+    </div>
+      </div>
+    </div>
+
+    <!-- Pastki qism: Tabs ichida card ko‘rinishda -->
+    <div class="border-t">
+      <ul class="nav nav-tabs px-4 pt-3" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="mehnat-tab" data-bs-toggle="tab" data-bs-target="#mehnat"
+            type="button" role="tab" aria-controls="mehnat" aria-selected="true">Mehnat faoliyati</button>
+        </li> 
+        {% if uslubiy_nashrlar %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="uslubiy-tab" data-bs-toggle="tab" data-bs-target="#uslubiy"
+            type="button" role="tab" aria-controls="uslubiy" aria-selected="false">Uslubiy nashrlar</button>
+        </li>
+        {% endif %}
+        {% if avtoreferatlar %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="avtoreferat-tab" data-bs-toggle="tab" data-bs-target="#avtoreferat"
+            type="button" role="tab" aria-controls="avtoreferat" aria-selected="false">Avtoreferat</button>
+        </li>
+        {% endif %}
+        {% if ilmiy_nashrlar %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="ilmiy_nashr-tab" data-bs-toggle="tab" data-bs-target="#ilmiy_nashr"
+            type="button" role="tab" aria-controls="ilmiy_nashr" aria-selected="false">Ilmiy nashrlar</button>
+        </li>
+        {% endif %}
+        {% if sertifikatlar %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="sertifikat-tab" data-bs-toggle="tab" data-bs-target="#sertifikat"
+            type="button" role="tab" aria-controls="sertifikat" aria-selected="false">Sertifikatlar</button>
+        </li>
+        {% endif %}
+        {% if videodarsliklar %}
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="videodars-tab" data-bs-toggle="tab" data-bs-target="#videodars"
+            type="button" role="tab" aria-controls="videodars" aria-selected="false">Videodarslar</button>
+        </li>
+        {% endif %}
+        {% if loyihalar %}
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="loyiha-tab" data-bs-toggle="tab" data-bs-target="#loyiha"
+              type="button" role="tab" aria-controls="loyiha" aria-selected="false">Loyihalar</button>
+          </li>
+        {% endif %}
+      </ul>
+
+      <div class="tab-content p-4 bg-blue-50" id="myTabContent">
+        <div class="tab-pane fade show active" id="mehnat" role="tabpanel" aria-labelledby="mehnat-tab">
+          {{ xodim.mehnat_faoliyati|linebreaksbr}}
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {% if uslubiy_nashrlar %}
+          <div class="tab-pane fade show" id="uslubiy" role="tabpanel" aria-labelledby="uslubiy-tab">
+
+            <!-- Nashrlar ro‘yxati -->
+            <ul class="space-y-5">
+              {% for uslubiy_nashr in uslubiy_nashrlar %}
+              <li class="pl-4 border-l-4 border-blue-600 text-gray-800 leading-relaxed">
+
+                <!-- Mualliflar -->
+                <p class="text-[15px] italic text-gray-700 mb-1">
+                  {% for author in uslubiy_nashr.authors.all %}
+                    {{ author.short_name }}{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                  {% if uslubiy_nashr.extra_authors %}
+                    {% if uslubiy_nashr.authors.all %}, {% endif %}
+                    {{ uslubiy_nashr.extra_authors }}
+                  {% endif %}
+                </p>
+
+                <!-- Asosiy nashr ma’lumoti -->
+                <p class="text-[16px] font-serif">
+                  <a href="{{ uslubiy_nashr.document_link }}"
+                    target="_blank"
+                    class="inline-block mt-1 text-[15px] font-serif text-blue-700 hover:text-blue-900 transition-colors duration-200"
+                    style="text-decoration: none;">
+                    “<span class="font-semibold">{{ uslubiy_nashr.title }}</span>”
+                  </a>
+                  ({{ uslubiy_nashr.year }}).
+                </p>
+
+                <!-- PDF yoki link -->
+                {% if uslubiy_nashr.document_link %}
+                <a href="{{ uslubiy_nashr.document_link }}"
+                  target="_blank"
+                  class="inline-block mt-1 text-blue-600 hover:text-blue-800 hover:underline text-[15px] transition">
+                  📄 {{ uslubiy_nashr.pdf_nomi }}
+                </a>
+                {% endif %}
+
+              </li>
+              {% endfor %}
+            </ul>
+
+          </div>
+          {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {% if avtoreferatlar %}
+          <div
+            class="tab-pane fade"
+            id="avtoreferat"
+            role="tabpanel"
+            aria-labelledby="avtoreferat-tab"
+          >
+            <ul class="space-y-4">
+              {% for avtoreferat in avtoreferatlar %}
+              <li
+                class="bg-gray-50 hover:bg-gray-100 transition rounded-2xl p-4 shadow-sm border border-gray-200"
+              >
+                <p class="text-gray-800 leading-relaxed text-[16px]">
+                  <span class="text-gray-700">
+                    {% for author in avtoreferat.authors.all %}
+                    {{ author.short_name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                    {% if avtoreferat.extra_authors %}
+                    {% if avtoreferat.authors.all %}, {% endif %}
+                    {{ avtoreferat.extra_authors }}
+                    {% endif %}
+                  </span>
+                  .
+                  <a
+                    href="{{ avtoreferat.document_link }}"
+                    target="_blank"
+                    class="inline-block mt-1 text-[15px] font-serif text-blue-700 hover:text-blue-900 transition-colors duration-200"
+                    style="text-decoration: none;">
+                    “<span class="font-semibold italic">{{ avtoreferat.title }}</span>”
+                  </a>
+                  , <span class="text-gray-600">{{ avtoreferat.year }}</span>.
+                  {% if avtoreferat.pdf_nomi %}
+                  <a
+                    href="{{ avtoreferat.document_link }}"
+                    target="_blank"
+                    class="ml-2 text-sm text-blue-600 hover:text-blue-800 transition font-medium"
+                  >
+                    {{ avtoreferat.pdf_nomi }}
+                  </a>
+                  {% endif %}
+                </p>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {% if ilmiy_nashrlar %}
+          <div class="tab-pane fade show" id="ilmiy_nashr" role="tabpanel" aria-labelledby="ilmiy_nashr-tab">
+            <!-- Nashrlar ro‘yxati -->
+            <ul class="space-y-5">
+              {% for ilmiy_nashr in ilmiy_nashrlar %}
+              <li class="pl-4 border-l-4 border-blue-600 text-gray-800 leading-relaxed">
+
+                <!-- Mualliflar -->
+                <p class="text-[15px] italic text-gray-700 mb-1">
+                  {% for author in ilmiy_nashr.authors.all %}
+                    {{ author.short_name }}{% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                  {% if ilmiy_nashr.extra_authors %}
+                    {% if ilmiy_nashr.authors.all %}, {% endif %}
+                    {{ ilmiy_nashr.extra_authors }}
+                  {% endif %}
+                </p>
+
+                <!-- Asosiy nashr ma’lumoti -->
+                <p class="text-[16px] font-serif">
+                  <a href="{{ ilmiy_nashr.document_link }}"
+                    target="_blank"
+                    class="inline-block mt-1 text-[15px] font-serif text-blue-700 hover:text-blue-900 transition-colors duration-200"
+                    style="text-decoration: none;">
+                    “<span class="font-semibold">{{ ilmiy_nashr.title }}</span>”
+                  </a>
+                  ({{ ilmiy_nashr.year }}).
+                </p>
+
+                <!-- PDF yoki link -->
+                {% if ilmiy_nashr.document_link %}
+                <a href="{{ ilmiy_nashr.document_link }}"
+                  target="_blank"
+                  class="inline-block mt-1 text-blue-600 hover:text-blue-800 hover:underline text-[15px] transition">
+                  📄 {{ ilmiy_nashr.pdf_nomi }}
+                </a>
+                {% endif %}
+
+              </li>
+              {% endfor %}
+            </ul>
+
+          </div>
+          {% endif %}
+
+
+
+
+
+
+
+
+
+
+        {% if sertifikatlar %}
+          <div
+            class="tab-pane fade"
+            id="sertifikat"
+            role="tabpanel"
+            aria-labelledby="sertifikat-tab"
+          >
+            <ul class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                {% for sertifikat in sertifikatlar %}
+                <div class="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 border border-gray-200 overflow-hidden group">
+                  
+                  <!-- Rasm qismi -->
+                  <div class="relative w-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                    <img
+                      class="max-h-60 w-auto transition-transform duration-500 transform group-hover:scale-110 object-contain"
+                      {% if sertifikat.photo %}
+                          src="{{ sertifikat.photo.url }}"
+                      {% endif %}
+                      alt="{% static 'img/logo.jpg' %}"
+                    />
+                  </div>
+                  
+                  <div class="p-4 flex flex-col justify-between h-40">
+                    <!-- Sertifikat nomi -->
+                    <a
+                      href="{{ sertifikat.document_link }}"
+                      target="_blank"
+                      class="text-[17px] font-semibold text-[#1a237e] hover:text-[#0d47a1] leading-snug transition-colors duration-200"
+                      style="font-family: 'Georgia', serif;"
+                    >
+                      “{{ sertifikat.title|truncatechars:80 }}”
+                    </a>
+
+                    <!-- Yil -->
+                    <p class="text-gray-600 text-[15px] mt-2">
+                      <span class="font-medium">Yili:</span> {{ sertifikat.year }}
+                    </p>
+
+                    <!-- PDF havolasi -->
+                    {% if sertifikat.pdf_nomi %}
+                    <a
+                      href="{{ sertifikat.document_link }}"
+                      target="_blank"
+                      class="mt-3 inline-flex items-center gap-2 text-sm font-medium text-blue-700 hover:text-blue-900 transition"
+                    >
+                      📄 {{ sertifikat.pdf_nomi }}
+                    </a>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+
+            </ul>
+          </div>
+        {% endif %}
+
+        
+
+
+
+
+
+
+
+
+
+        
+        {% if videodarsliklar %}
+          <div class="tab-pane fade" id="videodars" role="tabpanel" aria-labelledby="videodars-tab">
+
+            <!-- Card shaklidagi ro‘yxat -->
+            <ul class="space-y-4">
+              {% for videodars in videodarsliklar %}
+              <li class="bg-gray-50 hover:bg-gray-100 transition rounded-2xl p-4 shadow-sm border border-gray-200 flex items-start gap-3">
+
+                <!-- Video belgisi -->
+                <div class="flex-shrink-0">
+                  <div class="w-10 h-10 flex items-center justify-center bg-blue-600 text-white rounded-full shadow-md">
+                    ▶
+                  </div>
+                </div>
+
+                <!-- Asosiy ma’lumot -->
+                <div>
+                  <p class="text-gray-800 text-[16px] leading-relaxed">
+
+                    <!-- Videodars nomi -->
+                    <a href="{{ videodars.document_link }}"
+                      target="_blank"
+                      class="font-serif text-blue-700 hover:text-blue-900 transition-colors duration-200 font-semibold"
+                      style="text-decoration: none;">
+                      “{{ videodars.title }}”
+                    </a>
+
+                    <!-- Yil -->
+                    <span class="text-gray-600">({{ videodars.year }})</span>.
+                  </p>
+
+                  <!-- PDF yoki havola -->
+                  {% if videodars.pdf_nomi %}
+                  <a href="{{ videodars.document_link }}"
+                    target="_blank"
+                    class="inline-block mt-1 text-sm text-blue-600 hover:text-blue-800 font-medium transition">
+                    📄 {{ videodars.pdf_nomi }}
+                  </a>
+                  {% endif %}
+                </div>
+
+              </li>
+              {% endfor %}
+            </ul>
+
+          </div>
+          {% endif %}
+
+
+
+
+
+        {% if loyihalar %}
+          <div class="tab-pane fade" id="loyiha" role="tabpanel" aria-labelledby="loyiha-tab">
+            
+            <ul class="space-y-4">
+              {% for loyiha in loyihalar %}
+              <li class="bg-gray-50 hover:bg-gray-100 transition rounded-2xl p-4 shadow-sm border border-gray-200 flex items-start gap-3">
+
+                <!-- Belgisi -->
+                <div class="flex-shrink-0">
+                  <div class="w-10 h-10 flex items-center justify-center bg-green-600 text-white rounded-full shadow-md">
+                    💡
+                  </div>
+                </div>
+
+                <!-- Asosiy loyiha ma’lumotlari -->
+                <div>
+                  <p class="text-gray-800 text-[16px] leading-relaxed">
+                    <a href="{{ loyiha.document_link }}"
+                      target="_blank"
+                      class="font-serif text-blue-700 hover:text-blue-900 transition-colors duration-200 font-semibold"
+                      style="text-decoration: none;">
+                      “{{ loyiha.title }}”
+                    </a>
+                    <span class="text-gray-600">({{ loyiha.year }})</span>.
+                  </p>
+
+                  <!-- PDF nomi yoki hujjat havolasi -->
+                  {% if loyiha.pdf_nomi %}
+                  <a href="{{ loyiha.document_link }}"
+                    target="_blank"
+                    class="inline-block mt-1 text-sm text-blue-600 hover:text-blue-800 font-medium transition">
+                    📄 {{ loyiha.pdf_nomi }}
+                  </a>
+                  {% endif %}
+                </div>
+
+              </li>
+              {% endfor %}
+            </ul>
+
+          </div>
+        {% endif %}
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock context %}
+
+{% block style %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  .info-line {
+    color:#74808cff;
+    font-weight:500;
+    font-size:1.05rem;
+    line-height:1.4;
+    margin-top:4px;
+  }
+  .info-line span {
+    color:#0084a8ff;
+    font-size:1.1rem;
+  }
+/* Umumiy tugma */
+.nav-tabs .nav-link {
+  border: 1px solid transparent;
+  color: #333;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.nav-tabs .nav-link:hover {
+  border-color: #dee2e6 #dee2e6 #fff;
+  background-color: #f8f9fa;
+}
+
+/* Aktiv tugma */
+.nav-tabs .nav-link.active {
+  color: #0d6efd; /* mat ko‘k yozuv */
+  background-color: #e9f2ff; /* juda xira ko‘k fon */
+  border: 1px solid #948c8cff !important; /* sust kulrang chegara */
+  border-bottom-color: transparent !important; /* pastki chegara yashiriladi */
+  font-weight: 500;
+
+  .linklar_uchun {
+  color: #0d6efd;         
+  text-decoration: none;    
+  font-weight: 500;
+  }
+
+  .linklar_uchun:hover {
+    color: #160670af;          
+    text-decoration: underline;
+  }
+}
+/* Sarlavha kattaroq bo‘lsin */
+#uslubiy h5 {
+  font-size: 1.4rem;   /* kattaroq shrift */
+  font-weight: 700;    /* qalin yozuv */
+  margin-bottom: 1rem; /* pastdan bo‘shliq */
+}
+
+/* Har bir nashr elementiga stil */
+#uslubiy ul li {
+  font-size: 1.1rem;   /* matn kattaroq */
+  margin-bottom: 0.8rem; /* elementlar orasida masofa */
+  line-height: 1.6;    /* qator oraliq kengroq */
+}
+
+/* Linklar dizayni */
+.linklar_uchun {
+  color: #0d6efd;           
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.linklar_uchun:hover {
+  color: #000000;         
+  text-decoration: underline;
+}
+
+</style>
+
+{% endblock style %}
+{% block addscript %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+{% endblock addscript %}

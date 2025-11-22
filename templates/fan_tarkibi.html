@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}
+Muayyan fan tarkibi
+{% endblock title %}
+
+
+
+{% block context %}
+
+
+<div class="relative pt-2 lg:pt-2 min-h-screen max-w-screen-xl mx-auto p-4 sm:mb-8 mb-4">
+   
+    <!-- resources -->
+    <div class="bg-slate-100 w-full flex justify-between items-center py-6">
+      <div class="w-full bg-white bg-opacity-70 backdrop-filter backdrop-blur-md rounded-2xl shadow-sm">
+        <div class="w-11/12 mx-auto rounded-2xl">
+          <div class="space-y-6 mx-auto">
+            <a href="{% url 'home:adabiyotlar' fan.slug %}" class="no-underline hover:no-underline">
+              <article
+                class="bg-white p-5 shadow-md transition duration-300 hover:shadow-lg rounded-xl border border-gray-200 flex flex-col md:flex-row gap-6 items-start">
+                
+                
+                <!-- O‘ng tomonda matn -->
+                <div class="flex-1 text-start">
+                  <h3 class="font-semibold text-xl text-sky-900 mb-3">
+                    adabiyotlar
+                  </h3>
+                  <p class="text-gray-700 leading-relaxed">
+                    Ushbu fan bo‘yicha barcha adabiyotlar ro'yxati
+                  </p>
+                </div>
+              </article>
+            </a>
+            {% if fan_tarkiblari %}
+            {% for fan_tarkib in fan_tarkiblari %}
+              <a href="#" class="no-underline hover:no-underline">
+                <article
+                  class="bg-white p-5 shadow-md transition duration-300 hover:shadow-lg rounded-xl border border-gray-200 flex flex-col md:flex-row gap-6 items-start">
+                  
+                  
+                  <!-- O‘ng tomonda matn -->
+                  <div class="flex-1 text-start">
+                    <h3 class="font-semibold text-xl text-sky-900 mb-3">
+                      {{ fan_tarkib.title }}
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed">
+                      {{fan_tarkib.title}} haqida batafsil ma'lumot
+                    </p>
+                  </div>
+                </article>
+              </a>
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    
+
+
+</div>
+
+
+
+
+
+
+
+{% endblock context %}
+
+  
+{% block addscript %}
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock addscript %}

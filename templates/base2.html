@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Harvard University</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --harvard-crimson: #a41034;
+      --dark-bg: #0a0a0a;
+      --text-light: #ffffff;
+      --text-muted: #888888;
+      --border-color: #2a2a2a;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      margin: 0;
+      overflow-x: hidden;
+      background: #fff;
+    }
+
+    /* Topbar */
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 1200;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #000;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .brand .shield {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      background: var(--harvard-crimson);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 12px;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: transparent;
+      color: #000;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      border-radius: 4px;
+      padding: 8px 16px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      font-size: 14px;
+      transition: all 0.2s ease;
+      font-family: "Inter", sans-serif;
+    }
+
+    .icon-btn:hover {
+      background: rgba(0, 0, 0, 0.03);
+    }
+
+    /* Search Overlay */
+    .search-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--dark-bg);
+      z-index: 1300;
+      display: none;
+      flex-direction: column;
+      padding: 120px 48px 60px;
+    }
+
+    .search-overlay.open {
+      display: flex;
+    }
+
+    .search-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 40px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid var(--text-muted);
+      color: var(--text-light);
+      font-size: 24px;
+      padding: 12px 0;
+      font-family: "Inter", sans-serif;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-bottom-color: var(--text-light);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* Hero section */
+    .main-content {
+      padding-top: 70px;
+    }
+
+    .hero-section {
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(48px, 8vw, 96px);
+      color: #fff;
+      margin-bottom: 24px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.95);
+      max-width: 600px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* Menu overlay */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      background: var(--dark-bg);
+      transform: translateY(-100%);
+      transition: transform 0.4s ease;
+      z-index: 1250;
+      display: flex;
+      flex-direction: row;
+      color: var(--text-light);
+      visibility: hidden;
+    }
+
+    .menu-overlay.open {
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    .menu-left {
+      width: 34%;
+      min-width: 340px;
+      padding: 100px 48px 60px;
+      border-right: 1px solid var(--border-color);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-item {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 4.8vw, 52px);
+      color: var(--text-light);
+      border-bottom: 1px solid var(--border-color);
+      padding: 14px 0;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .menu-item:hover {
+      transform: translateX(8px);
+    }
+
+    .menu-center {
+      flex: 1;
+      padding: 100px 48px 60px;
+      overflow-y: auto;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.3s ease;
+    }
+
+    .menu-center.open {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .submenu-title {
+      font-family: "Playfair Display", serif;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .submenu-desc {
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .submenu-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 8px;
+      transition: color 0.2s ease;
+    }
+
+    .submenu-links a:hover {
+      color: var(--text-muted);
+    }
+
+    /* Quick links */
+    .quick-links-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 48px;
+      border-top: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Overlay close buttons */
+    .overlay-close {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+      font-size: 26px;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2000;
+      transition: all 0.3s ease;
+    }
+
+    .overlay-close:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+
+    /* ✅ Responsive Styles - Clean and Fixed */
+
+    /* ✅ Responsive Styles - Improved for Mobile */
+
+    /* For tablets and smaller screens */
+    @media (max-width: 768px) {
+
+      /* Overlay adjustments */
+      .menu-overlay {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding-top: 80px;
+      }
+
+      .menu-left,
+      .menu-center {
+        width: 100%;
+        padding: 60px 24px;
+        text-align: center;
+      }
+
+      /* Close button in overlay */
+      .overlay-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        width: 42px;
+        height: 42px;
+        background: transparent;
+        color: white;
+        font-size: 2rem;
+        border: none;
+        cursor: pointer;
+      }
+
+      /* Topbar layout fix */
+      header.topbar {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px;
+        /* slightly more padding */
+        gap: 8px;
+      }
+
+      .topbar .logo {
+        font-size: 1rem;
+      }
+
+      /* ✅ Move buttons slightly downward and darken */
+      .topbar-buttons {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+        top: 4px;
+        /* moves buttons slightly down */
+      }
+
+      .topbar .menu-btn,
+      .topbar .search-btn {
+        background: #222;
+        /* darker background */
+        color: #fff;
+        /* white text/icon */
+        border: none;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: background 0.3s ease;
+      }
+
+      .topbar .menu-btn:hover,
+      .topbar .search-btn:hover {
+        background: #111;
+        /* slightly darker on hover */
+      }
+
+      /* Hero section fix */
+      .hero-section {
+        height: auto;
+        min-height: 60vh;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .hero-section h1 {
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+      }
+
+      .hero-section p {
+        font-size: 1rem;
+        line-height: 1.5;
+        max-width: 90%;
+      }
+    }
+
+    /* ✅ Extra small devices (under 400px) */
+    @media (max-width: 400px) {
+      header.topbar {
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        gap: 6px;
+        padding: 12px;
+      }
+
+      .topbar .search-btn,
+      .topbar .menu-btn {
+        flex: 1;
+        text-align: center;
+        background: #222;
+        /* still dark for visibility */
+        color: #fff;
+        padding: 10px 12px;
+      }
+
+      .topbar-buttons {
+        width: 100%;
+        justify-content: center;
+        position: relative;
+        top: 6px;
+        /* move slightly lower again for smaller screens */
+      }
+
+      .hero-section {
+        padding: 30px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Topbar -->
+  <header class="topbar">
+    <a href="#" class="brand">
+      <span class="shield">HU</span>
+      <span style="font-family:Playfair Display, serif; font-size:18px; color: #111;">HARVARD</span>
+    </a>
+
+    <div class="top-actions">
+      <button id="searchBtn" class="icon-btn"><span>🔍</span> <span>Search</span></button>
+      <button id="menuBtn" class="icon-btn"><span>☰</span> <span>Menu</span></button>
+    </div>
+  </header>
+
+  <!-- Search Overlay -->
+  <div id="searchOverlay" class="search-overlay">
+    <button class="overlay-close" id="closeSearch">×</button>
+    <div class="search-header">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div
+          style="width: 44px; height: 44px; background: var(--harvard-crimson); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700;">
+          HU</div>
+        <div style="color: var(--text-light); font-weight: 700;">HARVARD UNIVERSITY</div>
+      </div>
+    </div>
+    <input type="text" class="search-input" placeholder="Search Harvard University" id="searchInput">
+  </div>
+
+  <!-- Main content -->
+  <main class="main-content">
+    <section class="hero-section">
+      <h1 class="hero-title">Genetics</h1>
+      <p class="hero-subtitle">Harvard researchers are working to decode how genes influence our lives.</p>
+    </section>
+  </main>
+
+  <!-- Menu Overlay -->
+  <div id="menuOverlay" class="menu-overlay">
+    <button class="overlay-close" id="closeMenu">×</button>
+
+    <nav class="menu-left" id="mainMenuList">
+      <div class="menu-item" data-key="academics">Academics</div>
+      <div class="menu-item" data-key="campus">Campus</div>
+      <div class="menu-item" data-key="infocus">In Focus</div>
+      <div class="menu-item" data-key="visit">Visit</div>
+      <div class="menu-item" data-key="about">About</div>
+    </nav>
+
+    <div class="menu-center" id="submenuPanel">
+      <div id="submenuContent"></div>
+    </div>
+
+    <div class="quick-links-bottom">
+      <span>Quick Links:</span> A to Z Index • Find a Person • Events • Alumni
+    </div>
+  </div>
+
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const menuOverlay = document.getElementById("menuOverlay");
+    const closeMenu = document.getElementById("closeMenu");
+
+    const searchBtn = document.getElementById("searchBtn");
+    const searchOverlay = document.getElementById("searchOverlay");
+    const closeSearch = document.getElementById("closeSearch");
+
+    const searchInput = document.getElementById("searchInput");
+    const submenuPanel = document.getElementById("submenuPanel");
+    const submenuContent = document.getElementById("submenuContent");
+
+    const submenuData = {
+      academics: {
+        title: "Academics",
+        desc: "Learning at Harvard can happen for every type of learner.",
+        links: ["Degree programs →", "Harvard Online", "Schools →"]
+      },
+      campus: {
+        title: "Campus",
+        desc: "Explore life, housing, and resources.",
+        links: ["Housing →", "Libraries →", "Facilities →"]
+      },
+      infocus: {
+        title: "In Focus",
+        desc: "Harvard's latest research and news.",
+        links: ["Genetics", "Health", "Innovation"]
+      },
+      visit: {
+        title: "Visit",
+        desc: "Plan a campus tour or event.",
+        links: ["Getting Here →", "Visitor Info →"]
+      },
+      about: {
+        title: "About Harvard",
+        desc: "Discover Harvard's structure and community.",
+        links: ["History", "Leadership", "Endowment"]
+      }
+    };
+
+    menuBtn.onclick = () => {
+      menuOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      showSubmenu("academics");
+    };
+    closeMenu.onclick = () => {
+      menuOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    };
+
+    searchBtn.onclick = () => {
+      searchOverlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+      searchInput.focus();
+    };
+    closeSearch.onclick = () => {
+      searchOverlay.classList.remove("open");
+      document.body.style.overflow = "";
+    };
+
+    document.getElementById("mainMenuList").addEventListener("click", e => {
+      const item = e.target.closest(".menu-item");
+      if (!item) return;
+      showSubmenu(item.dataset.key);
+    });
+
+    function showSubmenu(key) {
+      const data = submenuData[key];
+      submenuPanel.classList.add("open");
+      submenuContent.innerHTML = `
+        <div class="submenu-title">${data.title}</div>
+        <div class="submenu-desc">${data.desc}</div>
+        <div class="submenu-links">
+          ${data.links.map(link => `<a href="#">${link}</a>`).join("")}
+        </div>`;
+    }
+
+    window.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        menuOverlay.classList.remove("open");
+        searchOverlay.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+    });
+  </script>
+
+</body>
+
+</html>

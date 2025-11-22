@@ -1,0 +1,317 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Kompyuter tizimlari kafedrasi
+{% endblock title %}
+
+{% block style %}
+<style>
+.hero {
+  position: relative;
+}
+
+.hero-title, .hero-sub {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.information-wrapper {
+  transform: translateY(100%);
+}
+
+.hero.active .hero-title,
+.hero.active .hero-sub {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero.active .information-wrapper {
+  transform: translateY(0);
+}
+</style>
+<style>
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+</style>
+{% endblock style %}
+
+{% block extrahead %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+      crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+{% endblock extrahead %}
+
+{% block context %}
+<section class="hero relative h-screen overflow-hidden">
+  <!-- Bitta orqa fon rasmi -->
+  <img loading="lazy"
+       src="{% static 'img/university1.png' %}"
+       alt="Banner"
+       class="absolute top-0 left-0 w-full h-full object-cover" />
+
+  <!-- Gradient qoplama -->
+  <div class="absolute inset-0 bg-gradient-to-b from-blue-900/70 to-black/60"></div>
+
+  <!-- Matn qismi -->
+  <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 animate-fadeIn">
+    <h1 class="text-4xl sm:text-6xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
+      Iqtisodiyot Pedagogika Universiteti<br />
+      Kompyuter Tizimlari Kafedrasi
+    </h1>
+    <p class="text-lg sm:text-xl text-gray-200 max-w-2xl">
+      Komputer tizimlari kafedrasiga oid barcha kerakli ma'lumotlar, yangiliklar, e'lonlar
+    </p>
+
+  </div>
+</section>
+
+<div class="py-6 container max-w-screen-2xl p-4 mx-auto sm:mb-10 mb-0">
+  <div class="mt-10 w-full ml-auto mr-auto w-75">
+    <h1 class="mb-3 font-bold sm:text-3xl text-center "><span style="color:darkblue">Kompyuter tizimlari kafedrasi</span></h1>
+  </div>
+  <!-- Pastki matn -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="max-w-6xl mx-auto w-11/12 sm:w-10/12 mt-10">
+
+    <!-- Kafedra haqida ma’lumot -->
+    <div class="mb-10">
+      <p class="bg-white text-justify text-gray-700 dark:text-gray-200 text-lg leading-relaxed antialiased" style="color-scheme: light;">
+        Kafedra 2023-yilda Iqtisodiyot va pedagogika universitetining Kengash qaroriga asosan 
+        “Axborot texnologiyalari va raqamli iqtisodiyot” fakultetini tashkil topishi munosabati 
+        bilan fakultet tarkibida faoliyat boshlagan. 
+        Kompyuter tizimlari kafedrasi Axborot texnologiyalari va tizimlari hamda 
+        Kompyuter injiniring yo‘nalishlarida yuqori saviyali mutaxassislarni tayyorlashni 
+        o‘z oldiga asosiy maqsad qilib qo‘ygan. 
+        Shu kungacha kafedra tomonidan ko‘plab kompyuter sohasi bo‘yicha mutaxassislar tayyorlanmoqda. 
+        Ular davlat tashkilotlarida, banklar va firmalarda IT mutaxassisi sifatida 
+        samarali faoliyat olib bormoqdalar.
+      </p>
+    </div>
+
+    <!-- Kafedra mudiri card -->
+    <div class="flex flex-col sm:flex-row bg-white shadow-xl rounded-2xl overflow-hidden mx-auto mt-8">
+
+      <!-- Rasm -->
+      <div class="sm:w-1/3 w-full flex justify-center items-center bg-gray-50 p-4">
+        <a href="{% url 'home:muayyan_xodim' kafedra_mudiri.slug %}">
+          <img class="w-full sm:w-auto sm:h-72 h-56 object-cover rounded-xl shadow-md"
+            {% if kafedra_mudiri.photo %}
+              src="{{ kafedra_mudiri.photo.url }}"
+            {% else %}
+              src="{% static 'img/default_user.png' %}"
+            {% endif %}
+            alt="{{ kafedra_mudiri.full_name }}">
+        </a>
+      </div>
+
+      <!-- Ma’lumot -->
+      <div class="sm:w-2/3 w-full p-6 flex flex-col justify-center text-center sm:text-left 
+            bg-gradient-to-br from-[#f9fafc] to-[#eef2ff] rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-3xl hover:-translate-y-1">
+
+        <!-- Lavozim -->
+        <h2 class="font-serif text-[#1a237e] text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 tracking-wide">
+          {{ kafedra_mudiri.lavozim }}
+        </h2>
+
+        <!-- F.I.O -->
+        <h3 class="text-[#0d47a1] font-semibold text-xl sm:text-2xl lg:text-3xl mb-4">
+          <a href="{% url 'home:muayyan_xodim' kafedra_mudiri.slug %}" 
+            class="hover:text-[#1565c0] transition-colors duration-200">
+            {{ kafedra_mudiri.full_name }}
+          </a>
+        </h3>
+
+        <!-- Qabul kunlari -->
+        <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium mb-2 leading-snug">
+          <span class="font-semibold">Qabul kunlari:</span>
+          <span class="text-[#0d47a1]">{{ kafedra_mudiri.qabul_kunlar }}</span>
+        </p>
+
+        <!-- Telefon -->
+        <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium mb-2 leading-snug">
+          <span class="font-semibold">Telefon raqam:</span>
+          <span class="text-[#0d47a1] break-all">{{ kafedra_mudiri.phone }}</span>
+        </p>
+
+        <!-- E-mail -->
+        <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium leading-snug break-words overflow-hidden">
+          <span class="font-semibold">E-mail:</span>
+          <a href="mailto:{{ kafedra_mudiri.email_address }}" 
+            class="text-[#0d47a1] underline hover:text-[#1565c0] transition-colors duration-200 break-all">
+            {{ kafedra_mudiri.email_address }}
+          </a>
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- Yangiliklar -->
+    {% if yangiliklar %}
+      <div class="mt-12">
+        <h1 class="mb-4 font-bold text-3xl text-center text-gray-800">
+          Kompyuter tizimlari kafedrasiga oid yangiliklar
+        </h1>
+
+        <div id="carouselExampleIndicators" class="carousel slide rounded-xl shadow-xl overflow-hidden" data-ride="carousel">
+          <ol class="carousel-indicators">
+            {% for yangilik in yangiliklar %}
+              <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" 
+                  class="{% if forloop.first %}active{% endif %}"></li>
+            {% endfor %}
+          </ol>
+
+          <div class="carousel-inner">
+            {% for yangilik in yangiliklar %}
+              <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <a href="{% url 'home:yangilik_detail' yangilik.slug %}">
+                  <img class="d-block w-100 object-cover" 
+                      src="{{ yangilik.image.url }}" 
+                      alt="Yangilik rasmi {{ forloop.counter }}" 
+                      style="max-height:500px; object-fit:cover;">
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if elonlar %}
+  <div class="container my-5">
+    <h4 class="text-center mb-4" style="font-weight: 600;">SO'NGGI E'LONLAR</h4>
+
+    <div class="row g-4">
+      {% for elon in elonlar %}
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="card h-100 border-0 shadow-sm rounded-4">
+            <a href="{% url 'home:elon' elon.slug %}">
+              <img src="{{ elon.image.url }}" class="card-img-top rounded-top-4" alt="E'lon rasmi">
+            </a>
+            <div class="card-body">
+              <a href="{% url 'home:elon' elon.slug %}" class="">
+                <h5 class="card-title fw-semibold">{{ elon.title }}</h5>
+              </a>
+              <p class="card-text text-muted" style="font-size: 0.9rem;">
+                {{ elon.short_description }}
+              </p>
+              <p class="text-secondary small mb-3">{{ elon.data }} | {{ elon.time }}</p>
+              
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'home:elonlar' %}"><button type="button" class="btn btn-outline-primary px-4 rounded-pill">Barchasi</button></a>
+    </div>
+  </div>
+  {% endif %}
+
+</div>
+<!-- Lokatsiya qismi -->
+<section class="mt-10">
+  <h2 class="text-2xl font-bold text-center mb-4 text-sky-900">Bizning manzil</h2>
+  <div class="w-full h-96 rounded-xl overflow-hidden shadow-lg" id="map"></div>
+</section>
+
+{% endblock context %}
+
+{% block addscript %}
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const hero = document.querySelector(".hero");
+  setTimeout(function() {
+    hero.classList.add("active");
+  }, 300);  
+});
+</script>
+<script>
+  // Slayder kod
+  const slides = document.querySelectorAll("#slider .slide");
+  let current = 0;
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.add("opacity-0"); // barchasini yashirish
+      if (i === index) {
+        slide.classList.remove("opacity-0"); // faqat bitta ko‘rsatish
+      }
+    });
+  }
+
+  // Dastlabki rasm
+  showSlide(current);
+
+  // Har 5 soniyada almashsin
+  setInterval(() => {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  }, 5000);
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" 
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" 
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+        crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  // Xarita markazini sizning koordinataga qo'yamiz
+  var map = L.map('map').setView([38.8828166, 65.7944939], 15);
+
+  // OpenStreetMap layerini qo'shamiz
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
+
+  // Marker qo'shamiz
+  L.marker([38.8828166, 65.7944939])
+    .addTo(map)
+    .bindPopup("<b>Bizning manzilimiz 📍</b>")
+    .openPopup();
+</script>
+{% endblock addscript %}
+
+{% block static %}
+{% endblock static %}
