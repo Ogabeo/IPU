@@ -6,71 +6,93 @@
 {% endblock title %}
 
 {% block extrahead %}
-<!-- Swiper CSS -->
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+<!-- Bootstrap 4 CSS (kerak bo‘lsa) -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 <style>
-  .swiper {
-    width: 100%;
-    max-width: 1000px;
-    height: 550px;
-    margin: 0 auto;
-  }
-  .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 25px;
-  }
-  .swiper-button-next, .swiper-button-prev {
-    color: #1e3a8a !important; /* Ko‘k rang */
-  }
-  .swiper-pagination-bullet-active {
-    background-color: #1e3a8a !important;
-  }
+    .carousel-item img {
+        max-height: 550px;
+        object-fit: cover;
+        border-radius: 25px;
+    }
 </style>
 {% endblock extrahead %}
 
 {% block context %}
 <div class="max-w-6xl mx-auto mt-16 px-4">
 
-    <!-- Asosiy rasm, sarlavha va matn -->
+    <!-- ASOSIY YANGILIK -->
     <div class="text-center mb-12">
         {% with birinchi_rasm=muayyan_ilmiy_yangilik.rasmlar.first %}
             {% if birinchi_rasm %}
-                <img src="{{ birinchi_rasm.image.url }}" alt="{{ muayyan_ilmiy_yangilik.title }}"
-                    class="w-full max-h-[600px] object-cover rounded-3xl shadow-2xl mb-8">
+                <a href="{{ birinchi_rasm.image.url }}" 
+                   class="glightbox"
+                   data-gallery="yangilik-gallery">
+                    <img src="{{ birinchi_rasm.image.url }}" 
+                         class="w-full max-h-[600px] object-cover rounded-3xl shadow-2xl mb-8 cursor-pointer">
+                </a>
             {% endif %}
         {% endwith %}
-        <h1 class="text-5xl font-bold text-blue-900 mb-6">{{ muayyan_ilmiy_yangilik.title }}</h1>
-        <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+
+        <h1 class="text-5xl font-bold text-blue-900 mb-6">
+            {{ muayyan_ilmiy_yangilik.title }}
+        </h1>
+
+        <p class="text-lg text-gray-700 leading-relaxed">
             {{ muayyan_ilmiy_yangilik.description }}
         </p>
+
         <p class="text-gray-500 mt-4">{{ muayyan_ilmiy_yangilik.created_at }}</p>
     </div>
 
-    <!-- Swiper Carousel -->
-    {% if muayyan_ilmiy_yangilik.rasmlar.all %}
+    <!-- CAROUSEL -->
+   {% if muayyan_xalqaro_yangilik.rasmlar.all %}
     <div class="mt-20">
         <h2 class="text-3xl font-semibold text-center text-blue-900 mb-10">
             Ushbu yangilikka oid barcha rasmlar
         </h2>
 
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                {% for rasm in muayyan_ilmiy_yangilik.rasmlar.all %}
-                    <div class="swiper-slide">
-                        <img src="{{ rasm.image.url }}" alt="rasm {{ forloop.counter }}">
-                    </div>
+        <div id="yangilikCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                {% for rasm in muayyan_xalqaro_yangilik.rasmlar.all %}
+                <li data-target="#yangilikCarousel"
+                    data-slide-to="{{ forloop.counter0 }}"
+                    class="{% if forloop.first %}active{% endif %}">
+                </li>
+                {% endfor %}
+            </ol>
+
+            <!-- Slides -->
+            <div class="carousel-inner">
+                {% for rasm in muayyan_xalqaro_yangilik.rasmlar.all %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                    <a href="{{ rasm.image.url }}"
+                       class="glightbox"
+                       data-gallery="yangilik-gallery">
+                        <img src="{{ rasm.image.url }}"
+                             class="d-block w-100"
+                             style="max-height:550px; object-fit:cover; cursor:pointer;">
+                    </a>
+
+                </div>
                 {% endfor %}
             </div>
-            <!-- Tugmalar va pagination -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
+
+            <!-- Controls -->
+            <a class="carousel-control-prev" href="#yangilikCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+
+            <a class="carousel-control-next" href="#yangilikCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
         </div>
     </div>
     {% endif %}
@@ -79,32 +101,35 @@
 {% endblock context %}
 
 {% block static %}
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<!-- jQuery (FULL) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Popper + Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const swiper = new Swiper(".mySwiper", {
-      loop: true,
-      spaceBetween: 30,
-      centeredSlides: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      slidesPerView: 1,
-      breakpoints: {
-        768: { slidesPerView: 1 },
-        1024: { slidesPerView: 1.2 },
-      },
+    const lightbox = GLightbox({
+        touchNavigation: true,
+        loop: true,
+        zoomable: true,
+        draggable: true,
+        openEffect: 'zoom',
+        closeEffect: 'fade'
     });
-  });
+
+    // Carousel to‘liq ishga tushishi uchun
+    $('#yangilikCarousel').carousel({
+        interval: false,
+        ride: "carousel"
+    });
 </script>
+
 {% endblock static %}

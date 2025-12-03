@@ -1,30 +1,54 @@
 {% extends "base.html" %}
 {% load static %}
+
 {% block title %}
 E'lon haqida batafsil
 {% endblock title %}
-{% block extrahead %}
 
+{% block extrahead %}
+    <!-- GLightbox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 {% endblock extrahead %}
 
 {% block context %}
 
-    <div class="mt-10 w-full text-center">
-        <img class="d-block w-75 ml-auto mr-auto" src="{{ elon.image.url }}" 
-                alt="Yangilik rasmi" 
-                style="max-height:500px; object-fit:cover;">
-        <h1 class="mb-3 font-bold text-4xl sm:text-5xl text-blue-900 text-center">
-            {{ elon.title }}
-        </h1>
-        <p class="mx-auto px-16 my-6 text-gray-700 dark:text-gray-200 text-lg leading-relaxed text-justify w-75 ml-auto mr-auto ">
-            {{ elon.description }}
-        </p>
-    </div>
+<div class="mt-10 w-full text-center">
 
-    
+    <!-- LIGHTBOX TRIGGER -->
+    <a href="{{ elon.image.url }}"
+       class="glightbox"
+       data-gallery="elon-gallery"
+       data-type="image">
+        <img class="d-block w-75 ml-auto mr-auto rounded-3xl shadow-2xl cursor-pointer"
+             src="{{ elon.image.url }}"
+             alt="Elon rasmi"
+             style="max-height:500px; object-fit:cover;">
+    </a>
+
+    <h1 class="mb-3 font-bold text-4xl sm:text-5xl text-blue-900 text-center">
+        {{ elon.title }}
+    </h1>
+
+    <p class="mx-auto px-16 my-6 text-gray-700 dark:text-gray-200
+              text-lg leading-relaxed text-justify w-75 ml-auto mr-auto">
+        {{ elon.description }}
+    </p>
+</div>
 
 {% endblock context %}
 
 {% block static %}
+    <!-- GLightbox JS -->
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 
+    <script>
+        const lightbox = GLightbox({
+            touchNavigation: true,
+            loop: true,
+            zoomable: true,
+            draggable: true,
+            openEffect: 'zoom',
+            closeEffect: 'fade'
+        });
+    </script>
 {% endblock static %}

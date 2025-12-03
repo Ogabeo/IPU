@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from apps.resources.models import BakalavrYunalishlar, UqitiladiganFanlar, XalqaroHamkorliklar, XalqaroHamkorliklarRasm, IlmiyYangiliklar, IlmiyYangilikRasm
 from django.views import View
+from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
-
+from django.core.paginator import Paginator
+from django.db.models import Q 
 
 # Create your views here.
 class XalqaroHamkorlikView(View):
@@ -26,6 +28,38 @@ class ResourceTypeResourcesView(View):
 
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)
+
+class IlmiyYangiliklarView(ListView):
+    model = IlmiyYangiliklar
+    template_name = 'ilmiy_yangiliklar_listi.html'
+    context_object_name = 'ilmiy_yangiliklar'
+    paginate_by = 8
+    PAGINATION_URL = ''
+    def get_queryset(self):
+        queryset = IlmiyYangiliklar.objects.filter(is_active=True).order_by('?')  # Base queryset
+
+        # Get search query from request.GET (modify as needed)
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            self.PAGINATION_URL = f'&search={search_query}'  
+            queryset = queryset.filter(Q(title__icontains=search_query) |
+                                       Q(description__icontains = search_query))
+        return queryset
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('search', '')  
+        context['pagination_url'] = self.PAGINATION_URL
+        ilmiy_yangiliklar = self.object_list
+        paginator = Paginator(ilmiy_yangiliklar, self.paginate_by)
+        page_number = self.request.GET.get('page', 1)  # Get current page from GET
+        page_obj = paginator.get_page(page_number)
+            # Update context with pagination information
+        context['page_obj'] = page_obj
+        context['is_paginated'] = paginator.num_pages > 1
+
+        return context
+
 
 class IlmiyFaoliyatView(View):
     def get(self, request):

@@ -7,31 +7,15 @@
 
 {% block extrahead %}
 <!-- Swiper CSS -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+  
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
 
-<style>
-  .swiper {
-    width: 100%;
-    max-width: 1000px;
-    height: 550px;
-    margin: 0 auto;
-  }
-  .swiper-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 25px;
-  }
-  .swiper-button-next, .swiper-button-prev {
-    color: #1e3a8a !important; /* Ko‘k rang */
-  }
-  .swiper-pagination-bullet-active {
-    background-color: #1e3a8a !important;
-  }
-</style>
+
 {% endblock extrahead %}
 
 {% block context %}
@@ -39,72 +23,143 @@
 
     <!-- Asosiy rasm, sarlavha va matn -->
     <div class="text-center mb-12">
-        {% with birinchi_rasm=muayyan_xalqaro_yangilik.rasmlar.first %}
-            {% if birinchi_rasm %}
-                <img src="{{ birinchi_rasm.image.url }}" alt="{{ muayyan_xalqaro_yangilik.title }}"
-                    class="w-full max-h-[600px] object-cover rounded-3xl shadow-2xl mb-8">
-            {% endif %}
-        {% endwith %}
-        <h1 class="text-5xl font-bold text-blue-900 mb-6">{{ muayyan_xalqaro_yangilik.title }}</h1>
-        <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-            {{ muayyan_xalqaro_yangilik.description }}
-        </p>
-        <p class="text-gray-500 mt-4">{{ muayyan_xalqaro_yangilik.created_at }}</p>
-    </div>
+
+    {% with birinchi_rasm=muayyan_xalqaro_yangilik.rasmlar.first %}
+        {% if birinchi_rasm %}
+
+            <!-- GLIGHTBOX TRIGGER -->
+            <a href="{{ birinchi_rasm.image.url }}"
+               class="glightbox"
+               data-gallery="xalqaro-gallery"
+               data-type="image">
+
+                <img src="{{ birinchi_rasm.image.url }}"
+                     alt="{{ muayyan_xalqaro_yangilik.title }}"
+                     class="w-full max-h-[600px] object-cover rounded-3xl shadow-2xl mb-8 cursor-pointer">
+            </a>
+
+        {% endif %}
+    {% endwith %}
+
+    <h1 class="text-5xl font-bold text-blue-900 mb-6">
+        {{ muayyan_xalqaro_yangilik.title }}
+    </h1>
+
+    <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+        {{ muayyan_xalqaro_yangilik.description }}
+    </p>
+
+    <p class="text-gray-500 mt-4">
+        {{ muayyan_xalqaro_yangilik.created_at }}
+    </p>
+
+</div>
 
     <!-- Swiper Carousel -->
     {% if muayyan_xalqaro_yangilik.rasmlar.all %}
-    <div class="mt-20">
-        <h2 class="text-3xl font-semibold text-center text-blue-900 mb-10">
-            Ushbu yangilikka oid barcha rasmlar
-        </h2>
+<div class="mt-20">
+    <h2 class="text-3xl font-semibold text-center text-blue-900 mb-10">
+        Ushbu yangilikka oid barcha rasmlar
+    </h2>
 
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                {% for rasm in muayyan_xalqaro_yangilik.rasmlar.all %}
-                    <div class="swiper-slide">
-                        <img src="{{ rasm.image.url }}" alt="rasm {{ forloop.counter }}">
-                    </div>
-                {% endfor %}
+    <div id="carouselXalqaro" class="carousel slide" data-ride="carousel" data-interval="false">
+
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            {% for rasm in muayyan_xalqaro_yangilik.rasmlar.all %}
+            <li data-target="#carouselXalqaro"
+                data-slide-to="{{ forloop.counter0 }}"
+                class="{% if forloop.first %}active{% endif %}">
+            </li>
+            {% endfor %}
+        </ol>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+            {% for rasm in muayyan_xalqaro_yangilik.rasmlar.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+
+                <!-- LIGHTBOX trigger -->
+                <a href="{{ rasm.image.url }}"
+                   class="glightbox"
+                   data-gallery="xalqaro-gallery"
+                   data-type="image">
+                   
+                    <img class="carousel-image"
+                        src="{{ rasm.image.url }}"
+                        alt="Rasm"
+                        style="cursor: zoom-in; max-height:600px; object-fit:cover; width:100%;">
+                </a>
             </div>
-            <!-- Tugmalar va pagination -->
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-pagination"></div>
+            {% endfor %}
         </div>
+
+        <!-- Controls -->
+        <a class="carousel-control-prev" href="#carouselXalqaro" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next" href="#carouselXalqaro" role="button" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+
     </div>
-    {% endif %}
+</div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 </div>
 {% endblock context %}
 
 {% block static %}
-<!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const swiper = new Swiper(".mySwiper", {
-      loop: true,
-      spaceBetween: 30,
-      centeredSlides: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      slidesPerView: 1,
-      breakpoints: {
-        768: { slidesPerView: 1 },
-        1024: { slidesPerView: 1.2 },
-      },
+    const lightbox = GLightbox({
+        touchNavigation: true,
+        loop: true,
+        zoomable: true,
+        draggable: true,
+        openEffect: 'zoom',
+        closeEffect: 'fade'
     });
-  });
 </script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+    const lightbox = GLightbox({
+        touchNavigation: true,
+        loop: true,
+        zoomable: true,
+        draggable: true,
+        openEffect: 'zoom',
+        closeEffect: 'fade'
+    });
+</script>
+
 {% endblock static %}
