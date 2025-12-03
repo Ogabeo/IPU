@@ -31,6 +31,7 @@ Kompyuter tizimlari kafedrasi
   transform: translateY(0);
 }
 </style>
+
 <style>
 @keyframes fadeIn {
   0% { opacity: 0; transform: translateY(30px); }
@@ -39,6 +40,11 @@ Kompyuter tizimlari kafedrasi
 
 .animate-fadeIn {
   animation: fadeIn 1.5s ease-out forwards;
+}
+</style>
+<style>
+  #map * {
+    z-index: 1 !important;
 }
 </style>
 {% endblock style %}
@@ -64,8 +70,8 @@ Kompyuter tizimlari kafedrasi
   <!-- Matn qismi -->
   <div class="absolute inset-0 flex flex-col justify-center items-center text-center px-4 animate-fadeIn">
     <h1 class="text-4xl sm:text-6xl font-bold text-white mb-4 leading-tight drop-shadow-lg">
-      Iqtisodiyot Pedagogika Universiteti<br />
-      Kompyuter Tizimlari Kafedrasi
+      Iqtisodiyot va pedagogika universiteti<br />
+      Kompyuter tizimlari kafedrasi
     </h1>
     <p class="text-lg sm:text-xl text-gray-200 max-w-2xl">
       Komputer tizimlari kafedrasiga oid barcha kerakli ma'lumotlar, yangiliklar, e'lonlar

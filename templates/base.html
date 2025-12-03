@@ -183,7 +183,7 @@
     .menu-overlay {
   position: fixed;
   inset: 0;
-  z-index: 1250;
+  z-index: 9999;
   display: flex;
   flex-direction: row;
   color: var(--text-light);
@@ -208,7 +208,7 @@
 
     .menu-left {
       width: 34%;
-      min-width: 340px;
+      min-width: 34px;
       padding: 100px 48px 60px;
       border-right: 1px solid var(--border-color);
       overflow-y: auto;
@@ -217,17 +217,24 @@
     }
 
     .menu-item {
-      font-family: "Playfair Display", serif;
-      font-size: clamp(28px, 4.8vw, 52px);
-      color: var(--text-light);
-      border-bottom: 1px solid var(--border-color);
-      padding: 14px 0;
-      cursor: pointer;
-      transition: transform 0.2s ease;
+        font-family: "Playfair Display", serif;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--text-light);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* juda yengil chiziq */
+        padding: 10px 0;
+        cursor: pointer;
+        transition: transform 0.15s ease, color 0.2s ease;
     }
 
     .menu-item:hover {
-      transform: translateX(8px);
+        transform: translateX(4px);
+        color: #e4e4e4; /* akademik yumshoq hover */
+    }
+
+    /* Linklardagi ko‘k underline muammosini 100% yo‘q qiladi */
+    .menu-left a {
+        text-decoration: none !important;
     }
 
     .menu-center {
@@ -501,7 +508,7 @@
     <div class="search-header">
       <div style="display: flex; align-items: center; gap: 12px;">
         <div style="width: 44px; height: 44px; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: white;">
-          <img src="{% static 'img/logo.jpg' %}" alt="Harvard University Logo" style="width: 100%; height: 100%; object-fit: contain;" />
+          <img src="{% static 'img/logo.jpg' %}" alt="Komputer tizimlari" style="width: 100%; height: 100%; object-fit: contain;" />
         </div>
         <div style="color: var(--text-light); font-weight: 700;">
           Kompyuter tizimlari kafedrasi
@@ -509,7 +516,7 @@
       </div>
 
     </div>
-    <input type="text" class="search-input" placeholder="Search Harvard University" id="searchInput">
+    <input type="text" class="search-input" placeholder="O'zingizga kerakli ma'lumotni qidiring:" id="searchInput">
   </div>
 
 <!-- Menu Overlay -->
@@ -528,10 +535,6 @@
 
     <div class="menu-center" id="submenuPanel">
       <div id="submenuContent"></div>
-    </div>
-
-    <div class="quick-links-bottom">
-      <span>Quick Links:</span> A to Z Index • Find a Person • Events • Alumni
     </div>
   </div>
 
@@ -675,7 +678,7 @@
     <!-- O'rta qism -->
     <div class="text-center md:text-left mb-4 md:mb-0">
       <p class="text-sm text-gray-300">
-        Iqtisodiyot va Pedagogika Universiteti
+        Iqtisodiyot va pedagogika universiteti
       </p>
       <p class="text-sm text-gray-400">
         "Kompyuter tizimlari" kafedrasi rasmiy sahifasi

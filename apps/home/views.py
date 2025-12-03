@@ -70,13 +70,7 @@ class ElonView(View):
             'elon':elon
         }
         return render(request, 'elon_detail.html', context)
-# class ElonlarView(View):
-#     def get(self, request):
-#         elonlar = Elonlar.objects.all().order_by('-data')
-#         context ={
-#             'elonlar':elonlar
-#         }
-#         return render(request, 'elonlar_listi.html', context)
+
     
 class ElonlarView(ListView):
     model = Elonlar
