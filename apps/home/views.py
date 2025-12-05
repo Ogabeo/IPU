@@ -13,11 +13,11 @@ class HomePageView(View):
         recent_7 = Elonlar.objects.filter(is_active=True).order_by('-data')[:7]
         elonlar = random.sample(list(recent_7), min(4, len(recent_7)))
         yangiliklar = Yangiliklar.objects.filter(is_active=True).order_by('?')
-        xodimlar = Worker.objects.all()
+        kafedra_mudiri = Worker.objects.first()
       
         context = {
             'elonlar':elonlar,
-            'xodimlar': xodimlar,
+            'kafedra_mudiri': kafedra_mudiri,
             'yangiliklar': yangiliklar,
             
         }
@@ -27,9 +27,9 @@ class HomePageView(View):
 class KafedraXodimlari(View):
     def get(self, request):
         xodimlar = Worker.objects.all()
-        kafedra_xodimi=xodimlar.first()
+        kafedra_mudiri=xodimlar.first()
         context ={
-            'kafedra_xodimi':kafedra_xodimi,
+            'kafedra_mudiri':kafedra_mudiri,
             'xodimlar':xodimlar
         }
         return render(request, 'kafedra_xodimlari.html', context)

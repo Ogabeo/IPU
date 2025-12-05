@@ -118,64 +118,65 @@ Kompyuter tizimlari kafedrasi
       </p>
     </div>
 
-    <!-- Kafedra mudiri card -->
-    <div class="flex flex-col sm:flex-row bg-white shadow-xl rounded-2xl overflow-hidden mx-auto mt-8">
+    {% if kafedra_mudiri %}
+      <!-- Kafedra mudiri card -->
+      <div class="flex flex-col sm:flex-row bg-white shadow-xl rounded-2xl overflow-hidden mx-auto mt-8">
 
-      <!-- Rasm -->
-      <div class="sm:w-1/3 w-full flex justify-center items-center bg-gray-50 p-4">
-        <a href="{% url 'home:muayyan_xodim' kafedra_mudiri.slug %}">
-          <img class="w-full sm:w-auto sm:h-72 h-56 object-cover rounded-xl shadow-md"
-            {% if kafedra_mudiri.photo %}
-              src="{{ kafedra_mudiri.photo.url }}"
-            {% else %}
-              src="{% static 'img/default_user.png' %}"
-            {% endif %}
-            alt="{{ kafedra_mudiri.full_name }}">
-        </a>
-      </div>
-
-      <!-- Ma’lumot -->
-      <div class="sm:w-2/3 w-full p-6 flex flex-col justify-center text-center sm:text-left 
-            bg-gradient-to-br from-[#f9fafc] to-[#eef2ff] rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-3xl hover:-translate-y-1">
-
-        <!-- Lavozim -->
-        <h2 class="font-serif text-[#1a237e] text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 tracking-wide">
-          {{ kafedra_mudiri.lavozim }}
-        </h2>
-
-        <!-- F.I.O -->
-        <h3 class="text-[#0d47a1] font-semibold text-xl sm:text-2xl lg:text-3xl mb-4">
-          <a href="{% url 'home:muayyan_xodim' kafedra_mudiri.slug %}" 
-            class="hover:text-[#1565c0] transition-colors duration-200">
-            {{ kafedra_mudiri.full_name }}
+        <!-- Rasm -->
+        <div class="sm:w-1/3 w-full flex justify-center items-center bg-gray-50 p-4">
+          <a href="{% url 'home:muayyan_xodim' kafedra_mudiri.slug %}">
+            <img class="w-full sm:w-auto sm:h-72 h-56 object-cover rounded-xl shadow-md"
+              {% if kafedra_mudiri.photo %}
+                src="{{ kafedra_mudiri.photo.url }}"
+              {% else %}
+                src="{% static 'img/default_user.png' %}"
+              {% endif %}
+              alt="{{ kafedra_mudiri.full_name }}">
           </a>
-        </h3>
+        </div>
 
-        <!-- Qabul kunlari -->
-        <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium mb-2 leading-snug">
-          <span class="font-semibold">Qabul kunlari:</span>
-          <span class="text-[#0d47a1]">{{ kafedra_mudiri.qabul_kunlar }}</span>
-        </p>
+        <!-- Ma’lumot -->
+        <div class="sm:w-2/3 w-full p-6 flex flex-col justify-center text-center sm:text-left 
+              bg-gradient-to-br from-[#f9fafc] to-[#eef2ff] rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-3xl hover:-translate-y-1">
 
-        <!-- Telefon -->
-        <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium mb-2 leading-snug">
-          <span class="font-semibold">Telefon raqam:</span>
-          <span class="text-[#0d47a1] break-all">{{ kafedra_mudiri.phone }}</span>
-        </p>
+          <!-- Lavozim -->
+          <h2 class="font-serif text-[#1a237e] text-2xl sm:text-3xl lg:text-4xl font-bold mb-2 tracking-wide">
+            {{ kafedra_mudiri.lavozim }}
+          </h2>
 
-        <!-- E-mail -->
-        <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium leading-snug break-words overflow-hidden">
-          <span class="font-semibold">E-mail:</span>
-          <a href="mailto:{{ kafedra_mudiri.email_address }}" 
-            class="text-[#0d47a1] underline hover:text-[#1565c0] transition-colors duration-200 break-all">
-            {{ kafedra_mudiri.email_address }}
-          </a>
-        </p>
+          <!-- F.I.O -->
+          <h3 class="text-[#0d47a1] font-semibold text-xl sm:text-2xl lg:text-3xl mb-4">
+            <a href="{% url 'home:muayyan_xodim' kafedra_mudiri.slug %}" 
+              class="hover:text-[#1565c0] transition-colors duration-200">
+              {{ kafedra_mudiri.full_name }}
+            </a>
+          </h3>
+
+          <!-- Qabul kunlari -->
+          <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium mb-2 leading-snug">
+            <span class="font-semibold">Qabul kunlari:</span>
+            <span class="text-[#0d47a1]">{{ kafedra_mudiri.qabul_kunlar }}</span>
+          </p>
+
+          <!-- Telefon -->
+          <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium mb-2 leading-snug">
+            <span class="font-semibold">Telefon raqam:</span>
+            <span class="text-[#0d47a1] break-all">{{ kafedra_mudiri.phone }}</span>
+          </p>
+
+          <!-- E-mail -->
+          <p class="text-gray-800 text-base sm:text-lg lg:text-xl font-medium leading-snug break-words overflow-hidden">
+            <span class="font-semibold">E-mail:</span>
+            <a href="mailto:{{ kafedra_mudiri.email_address }}" 
+              class="text-[#0d47a1] underline hover:text-[#1565c0] transition-colors duration-200 break-all">
+              {{ kafedra_mudiri.email_address }}
+            </a>
+          </p>
+
+        </div>
 
       </div>
-
-    </div>
-
+    {% endif %}
     <!-- Yangiliklar -->
     {% if yangiliklar %}
       <div class="mt-12">

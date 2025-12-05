@@ -76,8 +76,10 @@ class UslubiyNashr(BaseModel):
 class IlmiyNashr(BaseModel):
     title = models.CharField(max_length=1000)
     year = models.CharField(max_length=5)
-    pdf_nomi=models.CharField(max_length=500, null=True, blank=True)
+    jurnal_nomi=models.CharField(max_length=500, null=True, blank=True)
+    sahifalar_soni = models.CharField(max_length=3, null=True, blank=True)
     document_link = models.TextField()
+    doi=models.CharField(max_length=100, null=True, blank=True)
     authors = models.ManyToManyField(Worker, blank=True, related_name="ilmiy_nashrlar")
     extra_authors = models.TextField(blank=True, null=True, help_text="Yana boshqa Mualliflar mavjud bo'lsa, qo'lda kiriting:")
     def __str__(self):
@@ -105,7 +107,6 @@ class Sertificate(BaseModel):
 class Videodarslik(BaseModel):
     title = models.CharField(max_length=300)
     year = models.CharField(max_length=5)
-    pdf_nomi=models.CharField(max_length=500, null=True, blank=True)
     authors = models.ManyToManyField(Worker, blank=True, related_name="videodarslik")
     document_link = models.TextField()
     def __str__(self):
@@ -113,7 +114,6 @@ class Videodarslik(BaseModel):
 class Loyiha(BaseModel):
     title = models.CharField(max_length=1000)
     year = models.CharField(max_length=5)
-    pdf_nomi=models.CharField(max_length=500, null=True, blank=True)
     authors = models.ManyToManyField(Worker, blank=True, related_name="loyiha")
     document_link = models.TextField()
     def __str__(self):

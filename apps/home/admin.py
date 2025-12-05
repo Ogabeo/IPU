@@ -92,7 +92,7 @@ class SertificateAdmin(admin.ModelAdmin):
 
 @admin.register(Videodarslik)
 class VideodarslikAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title','pdf_nomi', 'year', 'document_link']
+    list_display = ['id', 'title', 'year', 'document_link']
     list_display_links = ['id', 'title']
     search_fields = ['title', 'year']
     list_filter = ['year', 'authors']
@@ -103,7 +103,7 @@ class VideodarslikAdmin(admin.ModelAdmin):
 
 @admin.register(Loyiha)
 class LoyihaAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title','pdf_nomi', 'year', 'document_link']
+    list_display = ['id', 'title', 'year', 'document_link']
     list_display_links = ['id', 'title']
     search_fields = ['title', 'year']
     list_filter = ['year', 'authors']
@@ -114,8 +114,8 @@ class LoyihaAdmin(admin.ModelAdmin):
 
 @admin.register(IlmiyNashr)
 class IlmiyNashrAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'year','pdf_nomi', 'get_authors', 'extra_authors', 'document_link']
-    list_display_links = ['id', 'title']
+    list_display = ['id', 'title', 'year', 'doi', 'jurnal_nomi', 'sahifalar_soni', 'get_authors', 'extra_authors', 'document_link']
+    list_display_links = ['id', 'title', 'doi']
     search_fields = ['title', 'year', 'authors__ism', 'authors__familiya', 'extra_authors']
     list_filter = ['year', 'authors']
     filter_horizontal = ('authors',)  # ko‘p mualliflarni tanlash uchun

@@ -34,7 +34,11 @@
           </defs>
           <a href="{% url 'home:muayyan_xodim' kafedra_mudiri.slug %}">
             <image
-              xlink:href="{{ kafedra_mudiri.photo.url }}"
+              {% if kafedra_mudiri.photo %}
+                  xlink:href="{{ kafedra_mudiri.photo.url }}"
+              {% else %}
+                  xlink:href="{% static 'img/default_user.png' %}"
+              {% endif %}
               width="200"
               height="230"
               preserveAspectRatio="xMidYMid slice"

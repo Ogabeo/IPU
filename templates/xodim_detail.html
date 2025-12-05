@@ -395,18 +395,6 @@ Xodim haqida ma'lumot
           </div>
           {% endif %}
 
-
-
-
-
-
-
-
-
-
-
-
-
         {% if ilmiy_nashrlar %}
           <div class="tab-pane fade show" id="ilmiy_nashr" role="tabpanel" aria-labelledby="ilmiy_nashr-tab">
             <!-- Nashrlar ro‘yxati -->
@@ -441,7 +429,7 @@ Xodim haqida ma'lumot
                 <a href="{{ ilmiy_nashr.document_link }}"
                   target="_blank"
                   class="inline-block mt-1 text-blue-600 hover:text-blue-800 hover:underline text-[15px] transition">
-                  📄 {{ ilmiy_nashr.pdf_nomi }}
+                  📄 {{ ilmiy_nashr.doi }}
                 </a>
                 {% endif %}
 
@@ -566,15 +554,6 @@ Xodim haqida ma'lumot
                     <!-- Yil -->
                     <span class="text-gray-600">({{ videodars.year }})</span>.
                   </p>
-
-                  <!-- PDF yoki havola -->
-                  {% if videodars.pdf_nomi %}
-                  <a href="{{ videodars.document_link }}"
-                    target="_blank"
-                    class="inline-block mt-1 text-sm text-blue-600 hover:text-blue-800 font-medium transition">
-                    📄 {{ videodars.pdf_nomi }}
-                  </a>
-                  {% endif %}
                 </div>
 
               </li>
@@ -614,14 +593,7 @@ Xodim haqida ma'lumot
                     <span class="text-gray-600">({{ loyiha.year }})</span>.
                   </p>
 
-                  <!-- PDF nomi yoki hujjat havolasi -->
-                  {% if loyiha.pdf_nomi %}
-                  <a href="{{ loyiha.document_link }}"
-                    target="_blank"
-                    class="inline-block mt-1 text-sm text-blue-600 hover:text-blue-800 font-medium transition">
-                    📄 {{ loyiha.pdf_nomi }}
-                  </a>
-                  {% endif %}
+                 
                 </div>
 
               </li>
