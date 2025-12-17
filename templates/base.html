@@ -503,21 +503,26 @@
 
 
 <!-- Search Overlay -->
-  <div id="searchOverlay" class="search-overlay">
-    <button class="overlay-close" id="closeSearch">×</button>
-    <div class="search-header">
-      <div style="display: flex; align-items: center; gap: 12px;">
-        <div style="width: 44px; height: 44px; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: white;">
-          <img src="{% static 'img/logo.jpg' %}" alt="Komputer tizimlari" style="width: 100%; height: 100%; object-fit: contain;" />
-        </div>
-        <div style="color: var(--text-light); font-weight: 700;">
-          Kompyuter tizimlari kafedrasi
-        </div>
+<div id="searchOverlay" class="search-overlay">
+  <button class="overlay-close" id="closeSearch">×</button>
+  <div class="search-header">
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <div style="width: 44px; height: 44px; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; background-color: white;">
+        <img src="{% static 'img/logo.jpg' %}" alt="Komputer tizimlari" style="width: 100%; height: 100%; object-fit: contain;" />
       </div>
-
+      <div style="color: var(--text-light); font-weight: 700;">
+        Kompyuter tizimlari kafedrasi
+      </div>
     </div>
-    <input type="text" class="search-input" placeholder="O'zingizga kerakli ma'lumotni qidiring:" id="searchInput">
   </div>
+
+  <form method="get" action="{% url 'home:search_results' %}" class="flex items-center gap-2">
+    <input type="text" name="search" class="search-input" placeholder="O'zingizga kerakli ma'lumotni qidiring:"
+           value="{{ request.GET.search|default:'' }}">
+    <button type="submit" class="btn btn-primary">Qidiruv</button>
+  </form>
+</div>
+
 
 <!-- Menu Overlay -->
   <div id="menuOverlay" class="menu-overlay">

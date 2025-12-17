@@ -6,6 +6,7 @@ from apps.home.models import Elonlar, Worker, Adabiyotlar, Fan, Fan_tarkibi, Yan
 from django.core.paginator import Paginator
 from django.db.models import Q 
 import random
+from django.views.generic import TemplateView
 
 
 class HomePageView(View):
@@ -103,49 +104,6 @@ class ElonlarView(ListView):
 
         return context
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class FanListView(ListView):
     model = Fan
     template_name = 'fanlar.html'
@@ -211,8 +169,65 @@ class FanTarkibiView(View):
         }
         return render(request, 'fan_tarkibi.html', context)
 
+from django.views.generic import TemplateView
+from django.db.models import Q
+
+from apps.home.models import Elonlar, Worker, Fan, Yangiliklar
 
 
+class QidiruvNatijalariView(TemplateView):
+    template_name = 'qidiruv_natijalari.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        search_query = self.request.GET.get('search', '').strip()
+        context['search_query'] = search_query
+
+        if search_query:
+            # 🔹 O‘qituvchilar
+            context['workers'] = Worker.objects.filter(
+                is_active=True
+            ).filter(
+                Q(ism__icontains=search_query) |
+                Q(familiya__icontains=search_query) |
+                Q(otchestva__icontains=search_query) |
+                Q(familiya__icontains=search_query) |
+                Q(lavozim__icontains=search_query)
+            )
+
+            # 🔹 Fanlar
+            context['fans'] = Fan.objects.filter(
+                is_active=True
+            ).filter(
+                Q(title__icontains=search_query)
+            )
+
+            # 🔹 Yangiliklar
+            context['yangiliklar'] = Yangiliklar.objects.filter(
+                is_active=True
+            ).filter(
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query)
+            )
+
+            # 🔹 E’lonlar
+            context['elonlar'] = Elonlar.objects.filter(
+                is_active=True
+            ).filter(
+                Q(title__icontains=search_query) |
+                Q(short_description__icontains=search_query) |
+                Q(description__icontains=search_query)
+            )
+
+        else:
+            # Agar qidiruv bo‘lmasa — bo‘sh queryset
+            context['workers'] = Worker.objects.none()
+            context['fans'] = Fan.objects.none()
+            context['yangiliklar'] = Yangiliklar.objects.none()
+            context['elonlar'] = Elonlar.objects.none()
+
+        return context
 
 
 

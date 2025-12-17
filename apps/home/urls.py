@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import FanListView, ElonView, MuayyanXodim, FanTarkibiView, AdabiyotlarView, ElonlarView, YangilikView, HomePageView, KafedraXodimlari
+from .views import FanListView, ElonView, MuayyanXodim, QidiruvNatijalariView, FanTarkibiView, AdabiyotlarView, ElonlarView, YangilikView, HomePageView, KafedraXodimlari
 
 
 app_name = "home"
@@ -13,5 +13,5 @@ urlpatterns = [
     path('fanlar/', FanListView.as_view(), name='fanlar'),
     path('fan/<slug:slug>/', FanTarkibiView.as_view(), name='fan_tarkibi'),
     path('fan/<slug:slug>/adabiyotlar/', AdabiyotlarView.as_view(), name='adabiyotlar'),
-
+    path('search/', QidiruvNatijalariView.as_view(), name='search_results'),
 ]
