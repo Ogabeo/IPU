@@ -98,8 +98,136 @@ Fanlar
       </form>
     </div>
 
+    {% comment %}  {% endcomment %}
+    {% comment %} diagram qismi uchun  {% endcomment %}
+<div class="matrix-wrapper" 
+     style="grid-template-columns: 200px {% for fan in fanlar %}25px {% endfor %};">
+  <!-- Header: fanlar -->
+  <div class="matrix-header">
+    <div class="corner"></div>
+    {% for fan in fanlar %}
+      <div class="fan-title" data-fan="{{ fan.id }}"><span>{{ fan.title }}</span></div>
+    {% endfor %}
+  </div>
+
+  <!-- Body: o'qituvchilar va kataklar -->
+  <div class="matrix-body">
+    {% for worker in workers %}
+      <div class="teacher-name" data-worker="{{ worker.id }}">{{ worker.familiya }} {{ worker.ism }}</div>
+
+      {% for fan in fanlar %}
+        <div class="cell {% if worker in fan.workers.all %}active{% endif %}" 
+             data-fan="{{ fan.id }}" 
+             data-worker="{{ worker.id }}">
+        </div>
+      {% endfor %}
+    {% endfor %}
+  </div>
+</div>
 
 
+
+<style>
+.matrix-wrapper {
+  display: grid;
+  gap: 0; 
+  background: #f8fafc;
+  padding: 12px;
+  border-radius: 14px;
+}
+
+.matrix-header,
+.matrix-body {
+  display: contents;
+}
+
+.fan-title {
+  width: 25px;
+  height: 240px;
+  position: relative;
+  
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  cursor: pointer;
+}
+
+
+.fan-title::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 96%;
+
+  width: 3px;
+  height: 200px;
+  background: #e5e7eb;
+
+  transform:  rotate(35deg);
+  
+}
+
+.fan-title span {
+  position: absolute;
+  left: 50%;
+  transform: rotate(-55deg);
+  transform-origin: bottom left;
+  font-size: 12px;
+  font-weight: 600;
+  padding-left: 2px;
+  white-space: nowrap;
+  
+}
+.fan-title::before {
+  
+ 
+
+  width: 1px;
+  height: 90px;
+  background: #cbd5e1;
+
+  
+ 
+}
+
+.teacher-name {
+  height: 24px;               /* 🔑 cell height bilan aynan */
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
+  font-size: 13px;
+  background: #fff;
+  border-right: 1px solid #e5e7eb;
+}
+
+
+.cell {
+  width: 24px;
+  height: 24px;
+  background: #e5e7eb;
+  border-radius: 2px;           /* 🔑 jips ko‘rinish */
+}
+.cell.active {
+  background: #c7d2fe;
+}
+
+
+.highlight-cell {
+  background: #38bdf8 !important;
+}
+
+.highlight-text {
+  background: #e0f2fe;
+  color: #0284c7;
+  font-weight: 600;
+}
+
+
+</style>
+{% comment %} diagram qismi uchun  {% endcomment %}
+
+    {% comment %}  {% endcomment %}
     <!-- resources -->
     <div class="bg-slate-100 w-full flex justify-between items-center py-6">
       <div class="w-full bg-white bg-opacity-70 backdrop-filter backdrop-blur-md rounded-2xl shadow-sm">
@@ -191,4 +319,125 @@ Fanlar
   
 {% block addscript %}
 <script src="{% static 'js/main.js' %}"></script>
+
+{% comment %} diagramma uchun {% endcomment %}
+
+<script>
+document.querySelectorAll('.fan-title').forEach(fanEl => {
+  fanEl.addEventListener('mouseenter', () => {
+    const fanId = fanEl.dataset.fan;
+
+    // Fan nomi
+    fanEl.classList.add('highlight-text');
+
+    // Shu fan bilan bog‘langan kataklar
+    document.querySelectorAll(`.cell[data-fan="${fanId}"].active`)
+      .forEach(cell => {
+        cell.classList.add('highlight-cell');
+
+        // Mos o‘qituvchi
+        const workerId = cell.dataset.worker;
+        document
+          .querySelector(`.teacher-name[data-worker="${workerId}"]`)
+          .classList.add('highlight-text');
+      });
+  });
+
+  fanEl.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.highlight-cell')
+      .forEach(el => el.classList.remove('highlight-cell'));
+
+    document.querySelectorAll('.highlight-text')
+      .forEach(el => el.classList.remove('highlight-text'));
+  });
+});
+</script>
+<script>
+document.querySelectorAll('.fan-title').forEach(fanEl => {
+  fanEl.addEventListener('mouseenter', () => {
+    const fanId = fanEl.dataset.fan;
+
+    // Fan nomi matnini highlight qilamiz
+    fanEl.classList.add('highlight-text');
+
+    // Shu fan bilan bog'liq kataklar va o'qituvchi nomini highlight qilamiz
+    document.querySelectorAll(`.cell[data-fan="${fanId}"].active`).forEach(cell => {
+      cell.classList.add('highlight-cell');
+
+      // Mos o'qituvchi nomini highlight qilamiz
+      const workerId = cell.dataset.worker;
+      const teacherEl = document.querySelector(`.teacher-name[data-worker="${workerId}"]`);
+      if (teacherEl) teacherEl.classList.add('highlight-text');
+    });
+  });
+
+  fanEl.addEventListener('mouseleave', () => {
+    // Barcha highlightlarni olib tashlaymiz
+    document.querySelectorAll('.highlight-cell').forEach(el => el.classList.remove('highlight-cell'));
+    document.querySelectorAll('.highlight-text').forEach(el => el.classList.remove('highlight-text'));
+  });
+});
+</script>
+<script>
+  // Fan ustiga hover
+// Fan ustiga hover
+document.querySelectorAll('.fan-title').forEach(fanEl => {
+  fanEl.addEventListener('mouseenter', () => {
+    const fanId = fanEl.dataset.fan;
+
+    // Fan nomini highlight qilish
+    fanEl.classList.add('highlight-text');
+
+    // Shu fan bilan bog‘langan kataklar
+    document.querySelectorAll(`.cell[data-fan="${fanId}"].active`)
+      .forEach(cell => cell.classList.add('highlight-cell'));
+
+    // Shu fan bilan bog‘langan o'qituvchilar
+    document.querySelectorAll('.teacher-name').forEach(teacher => {
+      const workerId = teacher.dataset.worker;
+      if(document.querySelector(`.cell[data-fan="${fanId}"][data-worker="${workerId}"].active`)){
+        teacher.classList.add('highlight-text');
+      }
+    });
+  });
+
+  fanEl.addEventListener('mouseleave', () => {
+    const fanId = fanEl.dataset.fan;
+    fanEl.classList.remove('highlight-text');
+    document.querySelectorAll(`.cell[data-fan="${fanId}"].active`).forEach(cell => cell.classList.remove('highlight-cell'));
+    document.querySelectorAll('.teacher-name').forEach(teacher => teacher.classList.remove('highlight-text'));
+  });
+});
+
+
+// O'qituvchi ustiga hover
+document.querySelectorAll('.teacher-name').forEach(teacherEl => {
+  teacherEl.addEventListener('mouseenter', () => {
+    const workerId = teacherEl.dataset.worker;
+
+    // O'qituvchi nomini highlight qilish
+    teacherEl.classList.add('highlight-text');
+
+    // Shu o'qituvchiga tegishli kataklar va fan nomlarini highlight qilish
+    document.querySelectorAll(`.cell[data-worker="${workerId}"].active`)
+      .forEach(cell => {
+        cell.classList.add('highlight-cell');
+
+        const fanId = cell.dataset.fan;
+        const fanEl = document.querySelector(`.fan-title[data-fan="${fanId}"]`);
+        if(fanEl){
+          fanEl.classList.add('highlight-text');
+        }
+      });
+  });
+
+  teacherEl.addEventListener('mouseleave', () => {
+    teacherEl.classList.remove('highlight-text');
+    document.querySelectorAll('.cell.highlight-cell').forEach(cell => cell.classList.remove('highlight-cell'));
+    document.querySelectorAll('.fan-title.highlight-text').forEach(fan => fan.classList.remove('highlight-text'));
+  });
+});
+
+</script>
+{% comment %} diagramma uchun {% endcomment %}
 {% endblock addscript %}

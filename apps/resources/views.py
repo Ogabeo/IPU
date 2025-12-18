@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from apps.resources.models import BakalavrYunalishlar, UqitiladiganFanlar, XalqaroHamkorliklar, XalqaroHamkorliklarRasm, IlmiyYangiliklar, IlmiyYangilikRasm
+from apps.resources.models import BakalavrYunalishlar, XalqaroHamkorliklar, XalqaroHamkorliklarRasm, IlmiyYangiliklar, IlmiyYangilikRasm
 from django.views import View
 from django.views.generic import ListView
 from django.shortcuts import get_object_or_404
@@ -81,10 +81,10 @@ class IlmiyFaoliyatDetailView(View):
 class UquvFaoliyatiView(View):
     def get(self, request):
         yunalishlar = BakalavrYunalishlar.objects.all()
-        fanlar = UqitiladiganFanlar.objects.all()
+        
         context = {
             'yunalishlar':yunalishlar,
-            'fanlar':fanlar
+            
         }
         return render(request, "uquv_faoliyati.html", context)
     

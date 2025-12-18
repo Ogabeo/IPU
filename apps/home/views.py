@@ -112,7 +112,7 @@ class FanListView(ListView):
     PAGINATION_URL = ''
 
     def get_queryset(self):
-        queryset = Fan.objects.filter(is_active=True).order_by('?')  # Base queryset
+        queryset = Fan.objects.filter(is_active=True).prefetch_related('workers') # Base queryset
 
         # Get search query from request.GET (modify as needed)
         search_query = self.request.GET.get('search', '')
@@ -136,6 +136,11 @@ class FanListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['workers'] = (
+            Worker.objects
+            .filter(is_active=True)
+            .order_by('familiya', 'ism')
+        )
         context['search_query'] = self.request.GET.get('search', '')  # Pass search query to template
         context['filter_by_category'] = self.request.GET.get('category', '')  # Pass filter value to template
         context['filter_by_type'] = self.request.GET.get('resourceType', '')  

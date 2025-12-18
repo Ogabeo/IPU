@@ -1,5 +1,5 @@
 from django.contrib import admin
-from apps.resources.models import UqitiladiganFanlar, BakalavrYunalishlar, IlmiyYangiliklar, IlmiyYangilikRasm, XalqaroHamkorliklar, XalqaroHamkorliklarRasm
+from apps.resources.models import BakalavrYunalishlar, IlmiyYangiliklar, IlmiyYangilikRasm, XalqaroHamkorliklar, XalqaroHamkorliklarRasm
 # Register your models here.
 
 
@@ -46,14 +46,6 @@ class XalqaroHamkorliklarAdmin(admin.ModelAdmin):
     class Meta:
         verbose_name = 'xalqaro hamkorlik'
         verbose_name_plural = 'xalqaro hamkorliklar'
-
-
-
-    
-@admin.register(UqitiladiganFanlar)
-class UqitiladiganFanlarAdmin(admin.ModelAdmin):
-    list_display= ('id', 'title')
-    list_display_links = ('id', 'title')
 
 @admin.register(BakalavrYunalishlar)
 class BakalavrYunalishlarAdmin(admin.ModelAdmin):

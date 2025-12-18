@@ -187,23 +187,23 @@ class Course(models.TextChoices):
     turtinchi='4', '4-kurs'
     beshinchi = '5', '5-kurs'
 
-class Fan(BaseModel):
-    meyoriy_hujjat = models.ForeignKey(MeyoriyHujjat, on_delete=models.CASCADE, related_name='fan')
-    title = models.CharField(max_length=100, blank=False, null=False)
-    talim_shakli = models.CharField(max_length=20, choices=TalimShakli.choices)
-    image = models.ImageField(upload_to='fan/', null=True, blank=True)
-    course = models.CharField(max_length=10, choices=Course.choices)
-    slug = models.SlugField(blank = True, null=False)
-
-    class Meta:
-        verbose_name = "fan"
-        verbose_name_plural = "fanlar"
-    def __str__(self):
-        return f"{self.title}-{self.talim_shakli}, {self.course}-kurs"
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+class Fan(BaseModel): 
+    meyoriy_hujjat = models.ForeignKey(MeyoriyHujjat, on_delete=models.CASCADE, related_name='fan') 
+    title = models.CharField(max_length=100, blank=False, null=False) 
+    talim_shakli = models.CharField(max_length=20, choices=TalimShakli.choices) 
+    image = models.ImageField(upload_to='fan/', null=True, blank=True) 
+    course = models.CharField(max_length=10, choices=Course.choices) 
+    slug = models.SlugField(blank = True, null=False) 
+    workers = models.ManyToManyField( Worker, related_name='fanlar', blank=True ) 
+    class Meta: 
+        verbose_name = "fan" 
+        verbose_name_plural = "fanlar" 
+    def __str__(self): 
+        return f"{self.title}-{self.talim_shakli}, {self.course}-kurs" 
+    def save(self, *args, **kwargs): 
+        if not self.slug: 
+            self.slug = slugify(self.title) 
+            super().save(*args, **kwargs)
 
 class Fan_tarkibi(BaseModel):
     subject_name = models.ForeignKey(Fan, on_delete=models.CASCADE, related_name="fan_tarkibi" )

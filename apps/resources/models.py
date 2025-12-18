@@ -107,13 +107,4 @@ class BakalavrYunalishlar(BaseModel):
         verbose_name = "yo'nalish"
         verbose_name_plural = "yo'nalishlar"
 
-class UqitiladiganFanlar(BaseModel):
-    title = models.CharField(max_length=200, null=False, blank=False)
-
-    def __str__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = 'fan'
-        verbose_name_plural = 'fanlar'
     
