@@ -666,48 +666,64 @@
     </section>
     </div>
 
-<footer class="bg-blue-950 text-gray-200 py-6">
-  <div class="max-w-screen-xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-    
-    <!-- Chap qism -->
-     <a href="/" class="no-underline hover:no-underline">
-      <div class="flex items-center space-x-3 mb-4 md:mb-0">
-        <img src="{% static 'img/logo.jpg' %}" class="h-8" alt="Logo" />
-        <span class="text-lg font-semibold text-white">
-          Kompyuter tizimlari kafedrasi
-        </span>
-      </div>
-    </a>
+<footer class="bg-blue-950 text-gray-200">
+  <div class="max-w-screen-xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-4 gap-8">
 
-
-    <!-- O'rta qism -->
-    <div class="text-center md:text-left mb-4 md:mb-0">
-      <p class="text-sm text-gray-300">
-        Iqtisodiyot va pedagogika universiteti
-      </p>
+    <!-- 1. Logo va tavsif -->
+    <div>
+      <a href="/" class="no-underline hover:no-underline"> <div class="flex items-center space-x-3 mb-4 md:mb-0"> <img src="{% static 'img/logo.jpg' %}" class="h-8" alt="Logo" /> <span class="text-lg font-semibold text-white"> Kompyuter tizimlari kafedrasi </span> </div> </a>
       <p class="text-sm text-gray-400">
-        "Kompyuter tizimlari" kafedrasi rasmiy sahifasi
+        Iqtisodiyot va pedagogika universiteti <br>
+        Rasmiy kafedra sahifasi
       </p>
     </div>
 
-    <!-- O'ng qism (admin aloqa) -->
-    <div class="flex items-center space-x-3">
-  <p class="text-sm text-gray-400">Admin bilan bog‘lanish:</p>
-  <a class="size-10 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-white hover:bg-sky-600 transition-all duration-300"
-     href="https://t.me/ogabek238" target="_blank" rel="noopener noreferrer">
-    <svg class="flex-shrink-0 size-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 0C5.372 0 0 5.373 0 12c0 6.627 5.372 12 12 12s12-5.373 12-12c0-6.627-5.372-12-12-12zm5.437 7.422l-1.9 8.946c-.143.636-.52.792-1.053.494l-2.91-2.146-1.404 1.35c-.155.154-.285.285-.583.285l.21-2.976 5.418-4.894c.236-.21-.051-.327-.366-.118l-6.7 4.216-2.885-.9c-.627-.196-.641-.627.131-.928l11.244-4.337c.52-.191.975.127.808.913z"/>
-    </svg>
-  </a>
-</div>
+    <!-- 2. Yo‘nalishlar -->
+    <div>
+      <h4 class="text-white font-semibold mb-4">Asosiy havolalar</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="{% url 'home:kafedra_xodimlar' %}" class="hover:text-sky-400">Kafedra xodimlari</a></li>
+        <li><a href="{% url 'resources:ilmiy_faoliyat' %}" class="hover:text-sky-400">Ilmiy Faoliyat</a></li>
+        <li><a href="{% url 'resources:xalqaro_hamkorlik' %}" class="hover:text-sky-400">Xalqaro hamkorlik</a></li>
+      </ul>
+    </div>
+
+    <!-- 3. Tezkor havolalar -->
+    <div>
+      <h4 class="text-white font-semibold mb-4">Kafedra faoliyatiga oid</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="{% url 'home:fanlar' %}" class="hover:text-sky-400">Fanlar</a></li>
+        <li><a href="{% url 'home:elonlar' %}" class="hover:text-sky-400">E'lonlar</a></li>
+        <li><a href="{% url 'home:index' %}" class="hover:text-sky-400">Yangiliklar</a></li>
+      </ul>
+    </div>
+
+    <!-- 4. Aloqa -->
+    <div>
+      <h4 class="text-white font-semibold mb-4">Aloqa</h4>
+
+      <p class="text-sm text-gray-400 mb-3">
+        Texnik admin bilan bog‘lanish
+      </p>
+
+      <div class="flex space-x-3">
+        <a href="https://t.me/ogabek238" target="_blank"
+           class="size-10 flex items-center justify-center rounded-lg bg-blue-900 hover:bg-sky-600 transition">
+          <svg class="size-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0C5.372 0 0 5.373 0 12c0 6.627 5.372 12 12 12s12-5.373 12-12c0-6.627-5.372-12-12-12zm5.437 7.422l-1.9 8.946c-.143.636-.52.792-1.053.494l-2.91-2.146-1.404 1.35c-.155.154-.285.285-.583.285l.21-2.976 5.418-4.894c.236-.21-.051-.327-.366-.118l-6.7 4.216-2.885-.9c-.627-.196-.641-.627.131-.928l11.244-4.337c.52-.191.975.127.808.913z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
 
   </div>
 
-  <!-- Pastki chiziq -->
-  <div class="border-t border-gray-700 mt-4 pt-4 text-center text-xs text-gray-400">
+  <!-- Pastki qism -->
+  <div class="border-t border-blue-900 py-4 text-center text-xs text-gray-400">
     © 2025 Kompyuter tizimlari kafedrasi. Barcha huquqlar himoyalangan.
   </div>
 </footer>
+
 
 
 </body>

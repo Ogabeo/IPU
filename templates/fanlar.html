@@ -106,15 +106,18 @@ Fanlar
   <div class="matrix-header">
     <div class="corner"></div>
     {% for fan in fanlar %}
-      <div class="fan-title" data-fan="{{ fan.id }}"><span>{{ fan.title }}</span></div>
+      <a href="{% url 'home:fan_tarkibi' fan.slug %}">
+        <div class="fan-title" data-fan="{{ fan.id }}"><span>{{ fan.title }}</span></div>
+      </a>
     {% endfor %}
   </div>
 
   <!-- Body: o'qituvchilar va kataklar -->
   <div class="matrix-body">
     {% for worker in workers %}
-      <div class="teacher-name" data-worker="{{ worker.id }}">{{ worker.familiya }} {{ worker.ism }}</div>
-
+      <a href="{% url 'home:muayyan_xodim' worker.slug %}">
+        <div class="teacher-name" data-worker="{{ worker.id }}">{{ worker.familiya }} {{ worker.ism }}</div>
+      </a>  
       {% for fan in fanlar %}
         <div class="cell {% if worker in fan.workers.all %}active{% endif %}" 
              data-fan="{{ fan.id }}" 
@@ -171,6 +174,7 @@ Fanlar
 .fan-title span {
   position: absolute;
   left: 50%;
+  z-index: 999;
   transform: rotate(-55deg);
   transform-origin: bottom left;
   font-size: 12px;
@@ -186,8 +190,8 @@ Fanlar
   width: 1px;
   height: 90px;
   background: #cbd5e1;
-
-  
+  pointer-events: none; 
+  z-index: -1;
  
 }
 
