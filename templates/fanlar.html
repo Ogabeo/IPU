@@ -106,9 +106,9 @@ Fanlar
   <div class="matrix-header">
     <div class="corner"></div>
     {% for fan in fanlar %}
-      <a href="{% url 'home:fan_tarkibi' fan.slug %}">
+      
         <div class="fan-title" data-fan="{{ fan.id }}"><span>{{ fan.title }}</span></div>
-      </a>
+      
     {% endfor %}
   </div>
 

@@ -42,7 +42,10 @@
       {% endblock style %}
       
     </style>
+
     <style>
+   
+
     :root {
       --harvard-crimson: #a41034;
       --dark-bg: #0a0a0a;
@@ -324,6 +327,9 @@
         align-items: center;
         justify-content: flex-start;
         padding-top: 80px;
+        background:linear-gradient(rgba(0,0,0,.95), rgba(0,0,0,.85)), url("{% static 'img/mobile.png' %}") no-repeat center top;
+        background-size: cover;
+        background-attachment: scroll;
       }
 
       .menu-left,
@@ -447,6 +453,82 @@
         padding: 30px 10px;
       }
     }
+    @media (max-width: 768px) {
+
+  /* 🔥 SHUNI QO‘SHASIZ */
+  .top-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .topbar {
+    height: 75px;                 /* 🔥 biroz pastroq */
+    padding: 0 6px;
+    align-items: center;          /* 🔥 markaz */
+  }
+  .icon-btn {
+    padding: 0px 4px;            /* 🔥 kichraydi */
+    font-size: 9px;
+    line-height: 1;
+    height: 30px;                 /* 🔥 balandlikni majburiy tenglaymiz */
+    display: flex;
+    align-items: center;
+    gap: 1px;
+  }
+
+  .icon-btn span {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* mavjud mobile kodlaring qoladi */
+  
+}
+@media (max-width: 768px) {
+  .search-overlay form {
+    display: flex;
+    flex-direction: column;   /* 🔥 input tepada, tugma pastda */
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+  }
+  .search-overlay {
+    padding: 100px 20px 40px; /* 🔥 kamroq padding */
+    justify-content: flex-start;
+  }
+
+  .search-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    gap: 12px;
+  }
+
+  .search-header img {
+    width: 20px;
+    height: 20px;
+  }
+
+  .search-header div {
+    font-size: 15px;
+    font-weight: 600;
+  }
+   .search-input {
+    font-size: 10px;          /* 🔥 yozuv kichrayadi */
+    padding: 8px 8px;       /* 🔥 ixcham bo‘ladi */
+    line-height: 1.4;
+    border-radius: 8px;
+  }
+
+  .search-input::placeholder {
+    font-size: 13px;          /* 🔥 placeholder yanada kichik */
+    opacity: 0.85;
+  }
+
+}
+
   </style>
   <!-- tailwind css custom class -->
   <script>
@@ -485,7 +567,8 @@
 
 <body class="flex flex-col min-h-screen">
     <div class="w-full mx-auto bg-blue-900 flex-grow">
-      <nav class="bg-blue-950 border-gray-200 sm:py-5 py-2 fixed top-0 left-0 w-full z-50">
+      <nav class="bg-blue-950 border-gray-200 sm:py-5 py-2">
+
       
       <header class="topbar" style="background-color: #0A2A66; color: white; padding: 10px 20px; display: flex; align-items: center; justify-content: space-between;">
         <a href="/" class="flex items-center sm:space-x-3 space-x-1 rtl:space-x-reverse no-underline hover:no-underline">
